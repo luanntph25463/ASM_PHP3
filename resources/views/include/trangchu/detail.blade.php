@@ -406,7 +406,7 @@
                                     <!-- Teacher Review -->
                                     <div class="teacher_meta d-flex flex-row align-items-center justify-content-start">
                                         <div class="teacher_meta_title">Review:</div>
-                                        <div class="teacher_meta_text ml-auto"><span>12k</span><i class="fa fa-comment" aria-hidden="true"></i></div>
+                                        <div class="teacher_meta_text ml-auto"><span>{{$count}}</span><i class="fa fa-comment" aria-hidden="true"></i></div>
                                     </div>
                                     <!-- Teacher Quizzes -->
                                     <div class="teacher_meta d-flex flex-row align-items-center justify-content-start">
@@ -415,7 +415,7 @@
                                     </div>
                                 </div>
                                 <div class="teacher_info">
-                                    <p>Hi! I am Masion, I’m a marketing & management  eros pulvinar velit laoreet, sit amet egestas erat dignissim. Sed quis rutrum tellus, sit amet viverra felis. Cras sagittis sem sit amet urna feugiat rutrum nam nulla ipsum.</p>
+                                    <p>{{$courses->description}}</p>
                                 </div>
                             </div>
                         </div>

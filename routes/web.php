@@ -24,11 +24,13 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 |
 */
 
+Route::get('/listcourses', [CoursesController::class, 'listcourses'])->name('listcourses');
+
+Route::get('/lienhe', [CoursesController::class, 'lienhe'])->name('lienhe');
 
 Route::get('/', [CoursesController::class, 'trangchu'])->name('trangchu');
 Route::get('/{id}', [CoursesController::class, 'trangchuFull'])->name('trangchufull');
 Route::get('/detail/{id}', [CoursesController::class, 'detailcoursres'])->name('detail.courses');
-
 Route::get('/admin', [UsersController::class, 'Dashboard'])->name('Dashboard');
 
 Route::prefix('/category/')->group(function () {
