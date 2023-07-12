@@ -53,93 +53,216 @@
           </li>
           <li class="nav-item">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-chart-pie"></i>
+                <i class="fa-solid fa-chart-simple"></i>
               <p>
                 Thống kê
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
           </li>
-          <li class="nav-item">
-            <a href="{{ asset('courses/list') }}" class="nav-link">
-              <i class="nav-icon fas fa-chart-pie"></i>
+          <li class="nav-item ">
+            <a href="" class="nav-link ">
+                <i class="fa-brands fa-discourse"></i>
               <p>
                 Courses
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('courses.list') }}" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>list</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('courses.create') }}" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>create</p>
+                </a>
+              </li>
+            </ul>
           </li>
           <li class="nav-item">
-            <a href="{{ asset('order/list') }}" class="nav-link">
-              <i class="nav-icon fas fa-chart-pie"></i>
+            <a href="" class="nav-link">
+                <i class="fa-solid fa-cart-shopping"></i>
               <p>
                 Orders
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('order.list', ['id'=>1]) }}" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>list</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('order.create') }}" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>create</p>
+                </a>
+              </li>
+            </ul>
           </li>
+
           <li class="nav-item">
-            <a href="{{ asset('banners/list') }}" class="nav-link">
-              <i class="nav-icon fas fa-chart-pie"></i>
-              <p>
+            <a href="" class="nav-link ">
+                <i class="fa-solid fa-image"></i>              <p>
                 Banners
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('banners.list') }}" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>list</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('banners.create') }}" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>create</p>
+                </a>
+              </li>
+            </ul>
           </li>
           <li class="nav-item">
-            <a href="{{ asset('category/list') }}" class="nav-link">
-              <i class="nav-icon fas fa-chart-pie"></i>
+            <a href="" class="nav-link ">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
-                Category
+                Danh Mục
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('category.list') }}" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>list</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('category.create') }}" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>create</p>
+                </a>
+              </li>
+            </ul>
           </li>
           <li class="nav-item">
-            <a href="{{ asset('reviews/list') }}" class="nav-link">
-              <i class="nav-icon fas fa-chart-pie"></i>
-              <p>
-                reviews
+            <a href="" class="nav-link ">
+                <i class="fa-solid fa-comment"></i>              <p>
+                Đánh Gía
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('reviews.list') }}" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>list</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('reviews.create') }}" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>create</p>
+                </a>
+              </li>
+            </ul>
           </li>
           <li class="nav-item">
-            <a href="{{ asset('teachers/list') }}" class="nav-link">
-              <i class="nav-icon fas fa-chart-pie"></i>
+            <a href="" class="nav-link ">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
-                Teachers
+                Giáo Viên
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('teachers.list') }}" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>list</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('teachers.create') }}" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>create</p>
+                </a>
+              </li>
+            </ul>
           </li>
           <li class="nav-item">
-            <a href="{{ asset('promotions/list') }}" class="nav-link">
-              <i class="nav-icon fas fa-chart-pie"></i>
-              <p>
-                promotions
+            <a href="" class="nav-link ">
+                <i class="fa-solid fa-tag"></i>              <p>
+                Phiếu Giảm Giá
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('promotions.list') }}" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>list</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('promotions.create') }}" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>create</p>
+                </a>
+              </li>
+            </ul>
           </li>
           <li class="nav-item">
-            <a href="{{ asset('classes/list') }}" class="nav-link">
-              <i class="nav-icon fas fa-chart-pie"></i>
-              <p>
-                classes
+            <a href="" class="nav-link ">
+                <i class="fa-solid fa-screen-users"></i>
+                <p>
+                Lớp
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('classes.list') }}" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>list</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('classes.create') }}" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>create</p>
+                </a>
+              </li>
+            </ul>
           </li>
           <li class="nav-item">
-            <a href="{{ asset('users/list') }}" class="nav-link">
-              <i class="nav-icon fas fa-chart-pie"></i>
-              <p>
-                Ussers
+            <a href="" class="nav-link ">
+                <i class="fa-solid fa-user"></i>              <p>
+                User
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('users.list') }}" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>list</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('users.create') }}" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>create</p>
+                </a>
+              </li>
+            </ul>
           </li>
           <li class="nav-item">
             <a href="{{ asset('users/list') }}" class="nav-link">

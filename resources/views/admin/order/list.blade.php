@@ -1,5 +1,34 @@
 @extends('admin.layouts.layouts')
 @section('content')
+<nav class="main-header navbar ">
+    <ul class="navbar-nav ml-auto">
+        <!-- Navbar Search -->
+        <li class="nav-item">
+          <a class="nav-link" data-widget="navbar-search" href="#" role="button">
+            <i class="fas fa-search"></i>
+          </a>
+          <div class="navbar-search-block">
+            <form class="form-inline" action="{{ route('order.search') }}" method="GET">
+              <div class="input-group input-group-sm">
+                <input class="form-control form-control-navbar input-control" name="search" type="search" placeholder="Search" aria-label="Search">
+                <div class="input-group-append">
+                  <button class="btn btn-navbar" type="submit">
+                    <i class="fas fa-search"></i>
+                  </button>
+                  <button class="btn btn-navbar" type="button" data-widget="navbar-search">
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </li>
+      </ul>
+</nav>
+<select id="my-select">
+    <option value="asc">Sắp Xếp Lớn Đến Bé</option>
+    <option value="desc">Sắp Xếp Bé Đến Lớn</option>
+</select>
 <div class="col-md-12">
     <!-- Button to Open the Modal -->
 <button type="button" id="create" class="btn btn-primary px-5 py-2 m-3" data-toggle="modal" data-target="#myModal">
@@ -8,15 +37,26 @@
 
 <table class="table table-dark m-2">
     <thead>
+        <th></th>
         <th>ID</th>
         <th>Name</th>
-        <th>Description</th>
-        <th></th>
-        <th></th>
+        <th>mã Người Dùng</th>
+        <th>Mã Khóa Học</th>
+        <th>Số Lượng</th>
+        <th>Tổng Số Tiền</th>
+        <th>Ngày Đặt</th>
+        <th>Trạng Thái</th>
+        <th>Hạnh Động</th>
     </thead>
     <tbody>
+        <form action="{{ route('order.delete') }}">
+            <button type="submit" class="btn btn-danger">Delete Selected</button>
+            @csrf
         @foreach ($order as $item)
             <tr>
+                <td>
+                    <input type="checkbox" name="ids[]" value="{{ $item->id }}">
+                </td>
                 <td>{{ $item->id }}</td>
                 <td>{{ $item->name	 }}</td>
                 <td>{{ $item->id_user }}</td>
@@ -24,7 +64,13 @@
                 <td>{{ $item->quantity }}</td>
                 <td>{{ $item->total_amount }}</td>
                 <td>{{ $item->order_date }}</td>
-                <td>{{ $item->status }}</td>
+                <td>
+                    @if($item->status == 1)
+                     Mở
+                     @elseif($item->status == 2)
+                    Khóa
+                     @endif
+                     </td>
                 <td>
                     <button type="button" data="{{ $item->id }}" id="edit" class="btn btn-warning"
                         data-toggle="modal" data-target="#myModal">
@@ -32,13 +78,17 @@
                     </button>
                 </td>
                 <td>
-                    <button type="button" data="{{ $item->id }}" id="delete" class="btn btn-danger">
-                        Delete
-                    </button>
+                    <a href="in/{{$item->id}}/pdf">
+                        In Hóa Đơn
+                    </a>
                 </td>
             </tr>
         @endforeach
+    </form>
     </tbody>
+    <div class="w-100 m-3">
+        {!! $order->links() !!}
+    </div>
 </table>
 
 </div>
@@ -47,7 +97,12 @@
 @section('script')
     <script>
         $(document).ready(function() {
+      $('#my-select').on('change', function() {
+    var value = $(this).val();
+    // console.log(value)
+    window.location.href = '/order/list/' + value;
 
+});
             //create
             $('#create').click(function() {
                 $('.modal-title').text('Create User')

@@ -1,5 +1,30 @@
 @extends('admin.layouts.layouts')
 @section('content')
+<nav class="main-header navbar ">
+    <ul class="navbar-nav ml-auto">
+        <!-- Navbar Search -->
+        <li class="nav-item">
+          <a class="nav-link" data-widget="navbar-search" href="#" role="button">
+            <i class="fas fa-search"></i>
+          </a>
+          <div class="navbar-search-block">
+            <form class="form-inline" action="{{ route('banners.search') }}" method="GET">
+              <div class="input-group input-group-sm">
+                <input class="form-control form-control-navbar input-control" name="search" type="search" placeholder="Search" aria-label="Search">
+                <div class="input-group-append">
+                  <button class="btn btn-navbar" type="submit">
+                    <i class="fas fa-search"></i>
+                  </button>
+                  <button class="btn btn-navbar" type="button" data-widget="navbar-search">
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </li>
+      </ul>
+</nav>
 <div class="col-md-12">
     <!-- Button to Open the Modal -->
 <button type="button" id="create" class="btn btn-primary px-5 py-2 m-3" data-toggle="modal" data-target="#myModal">
@@ -8,6 +33,7 @@
 
 <table class="table table-dark m-2">
     <thead>
+        <th></th>
         <th>ID</th>
         <th>Image</th>
         <th>Link</th>
@@ -15,8 +41,14 @@
         <th></th>
     </thead>
     <tbody>
+        <form action="{{ route('banners.delete') }}">
+            <button type="submit" class="btn btn-danger">Delete Selected</button>
+            @csrf
         @foreach ($banners as $item)
             <tr>
+                <td>
+                    <input type="checkbox" name="ids[]" value="{{ $item->id }}">
+                </td>
                 <td>{{ $item->id }}</td>
                 <td>{{ $item->image }}</td>
                 <td>{{ $item->link }}</td>
@@ -33,7 +65,11 @@
                 </td>
             </tr>
         @endforeach
+        </form>
     </tbody>
+    <div class="w-100 m-3">
+        {!! $banners->links() !!}
+    </div>
 </table>
 
 </div>

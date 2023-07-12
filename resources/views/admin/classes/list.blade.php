@@ -1,5 +1,30 @@
 @extends('admin.layouts.layouts')
 @section('content')
+<nav class="main-header navbar ">
+    <ul class="navbar-nav ml-auto">
+        <!-- Navbar Search -->
+        <li class="nav-item">
+          <a class="nav-link" data-widget="navbar-search" href="#" role="button">
+            <i class="fas fa-search"></i>
+          </a>
+          <div class="navbar-search-block">
+            <form class="form-inline" action="{{ route('classes.search') }}" method="GET">
+              <div class="input-group input-group-sm">
+                <input class="form-control form-control-navbar input-control" name="search" type="search" placeholder="Search" aria-label="Search">
+                <div class="input-group-append">
+                  <button class="btn btn-navbar" type="submit">
+                    <i class="fas fa-search"></i>
+                  </button>
+                  <button class="btn btn-navbar" type="button" data-widget="navbar-search">
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </li>
+      </ul>
+</nav>
 <div class="col-md-12">
     <!-- Button to Open the Modal -->
 <button type="button" id="create" class="btn btn-primary px-5 py-2 m-3" data-toggle="modal" data-target="#myModal">
@@ -8,22 +33,40 @@
 
 <table class="table table-dark m-2">
     <thead>
+        <th></th>
         <th>ID</th>
-        <th>Name</th>
-        <th>Description</th>
+        <th>Tên Lớp</th>
+        <th>Ngày Bắt Đầu</th>
+        <th>Ngày Kết Thúc</th>
+        <th>Số Lượng Học Sinh</th>
+        <th>Ca Học</th>
+        <th>Trạng Thái</th>
+        <th>id_Khóa Học</th>
         <th></th>
         <th></th>
     </thead>
     <tbody>
+        <form action="{{ route('classes.delete') }}">
+            <button type="submit" class="btn btn-danger">Delete Selected</button>
+            @csrf
         @foreach ($classes as $item)
             <tr>
+                <td>
+                    <input type="checkbox" name="ids[]" value="{{ $item->id }}">
+                </td>
                 <td>{{ $item->id }}</td>
                 <td>{{ $item->name }}</td>
                 <td>{{ $item->start_date }}</td>
                 <td>{{ $item->end_date }}</td>
                 <td>{{ $item->quantity_member }}</td>
                 <td>{{ $item->ca_hoc }}</td>
-                <td>{{ $item->status }}</td>
+                <td>
+                    @if($item->status == 1)
+                     Mở
+                     @elseif($item->status == 2)
+                    Khóa
+                     @endif
+                     </td>
                 <td>{{ $item->id_course }}</td>
                 <td>
                     <button type="button" data="{{ $item->id }}" id="edit" class="btn btn-warning"
@@ -38,7 +81,11 @@
                 </td>
             </tr>
         @endforeach
+        </form>
     </tbody>
+    <div class="w-100 m-3">
+        {!! $classes->links() !!}
+    </div>
 </table>
 
 </div>
