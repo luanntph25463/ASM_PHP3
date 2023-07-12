@@ -155,43 +155,22 @@
 				</div>
 			</div>
 			<div class="row features_row">
-
-				<!-- Features Item -->
+                @foreach ($category as $item )
 				<div class="col-lg-3 feature_col">
 					<div class="feature text-center trans_400">
 						<div class="feature_icon"><img src="images/icon_1.png" alt=""></div>
-						<h3 class="feature_title">The Experts</h3>
-						<div class="feature_text"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p></div>
+						<h3 class="feature_title">{{$item->name}}</h3>
+						<div class="feature_text"><p>{{$item->description}}</p></div>
 					</div>
 				</div>
-
+                @endforeach
 				<!-- Features Item -->
-				<div class="col-lg-3 feature_col">
-					<div class="feature text-center trans_400">
-						<div class="feature_icon"><img src="images/icon_2.png" alt=""></div>
-						<h3 class="feature_title">Book & Library</h3>
-						<div class="feature_text"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p></div>
-					</div>
-				</div>
 
-				<!-- Features Item -->
-				<div class="col-lg-3 feature_col">
-					<div class="feature text-center trans_400">
-						<div class="feature_icon"><img src="images/icon_3.png" alt=""></div>
-						<h3 class="feature_title">Best Courses</h3>
-						<div class="feature_text"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p></div>
-					</div>
-				</div>
-
-				<!-- Features Item -->
-				<div class="col-lg-3 feature_col">
-					<div class="feature text-center trans_400">
-						<div class="feature_icon"><img src="images/icon_4.png" alt=""></div>
-						<h3 class="feature_title">Award & Reward</h3>
-						<div class="feature_text"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p></div>
-					</div>
-				</div>
-
+                <div class="row">
+                    <div class="col">
+                        <div class="courses_button trans_200 align-items-center mx-5"><a href="{{ route('trangchufull', ['id'=>1]) }}">view all courses</a></div>
+                    </div>
+                </div>
 			</div>
 		</div>
 	</div>
@@ -213,27 +192,36 @@
 
 				<!-- Course -->
                 @foreach ($courses as $item)
-				<div class="col-lg-4 course_col">
+				<div class="col-lg-4 course_col h-100 my-2">
 					<div class="course">
-						<div class="course_image"><img src="images/course_1.jpg" alt=""></div>
+						<div class="course_image"><img src="{{$item->image}}" alt=""></div>
 						<div class="course_body">
-							<h3 class="course_title"><a href="course.html">{{$item->name}}</a></h3>
-							<div class="course_teacher">Mr. John Taylor</div>
+							<h3 class="course_title"><a href="{{ route('detail.courses', ['id'=>$item->id]) }}">{{$item->name}}</a></h3>
+							<div class="course_teacher">{{$item->tenGiaoVien}}</div>
 							<div class="course_text">
-								<p>Lorem ipsum dolor sit amet, consectetur adipi elitsed do eiusmod tempor</p>
+								<p>{{$item->description}}</p>
+							</div>
+                            <div class="course_text">
+                                <p> <i class="fa-sharp fa-solid fa-play text-warning"></i>	Bắt Đầu Lúc : {{$item->start_date}} - {{$item->end_date}}</p>
+							</div>
+                            <div class="course_text">
+                                <p>	Ca học : {{$item->ca_hoc}}</p>
+							</div>
+                            <div class="course_text">
+                                <p> <i class="fa-sharp fa-solid fa-book text-warning"></i>	Tên Danh Mục : {{$item->tenDM}}</p>
 							</div>
 						</div>
 						<div class="course_footer">
 							<div class="course_footer_content d-flex flex-row align-items-center justify-content-start">
 								<div class="course_info">
 									<i class="fa fa-graduation-cap" aria-hidden="true"></i>
-									<span>20 Student</span>
+									<span>{{$item->SiSo}} Student</span>
 								</div>
 								<div class="course_info">
 									<i class="fa fa-star" aria-hidden="true"></i>
-									<span>5 Ratings</span>
+									<span>{{$item->DanhGia}} Ratings</span>
 								</div>
-								<div class="course_price ml-auto">$130</div>
+								<div class="course_price ml-auto">$ {{$item->price}}</div>
 							</div>
 						</div>
 					</div>
@@ -241,9 +229,12 @@
                 @endforeach
 
 			</div>
+            {{-- <div class="w-100 m-3 items-center">
+                {!! $courses->links() !!}
+            </div> --}}
 			<div class="row">
 				<div class="col">
-					<div class="courses_button trans_200"><a href="#">view all courses</a></div>
+					<div class="courses_button trans_200"><a href="{{ route('trangchufull', ['id'=>1]) }}">view all courses</a></div>
 				</div>
 			</div>
 		</div>
@@ -426,12 +417,13 @@
 			<div class="row team_row">
 
 				<!-- Team Item -->
-				<div class="col-lg-3 col-md-6 team_col">
+                @foreach ($teachers as $item)
+                <div class="col-lg-3 col-md-6 team_col">
 					<div class="team_item">
-						<div class="team_image"><img src="images/team_1.jpg" alt=""></div>
+						<div class="team_image"><img src="{{$item->image}}" alt=""></div>
 						<div class="team_body">
-							<div class="team_title"><a href="#">Jacke Masito</a></div>
-							<div class="team_subtitle">Marketing & Management</div>
+							<div class="team_title"><a href="#">{{$item->name}}</a></div>
+							<div class="team_subtitle">{{$item->specialized}}</div>
 							<div class="social_list">
 								<ul>
 									<li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
@@ -442,60 +434,7 @@
 						</div>
 					</div>
 				</div>
-
-				<!-- Team Item -->
-				<div class="col-lg-3 col-md-6 team_col">
-					<div class="team_item">
-						<div class="team_image"><img src="images/team_2.jpg" alt=""></div>
-						<div class="team_body">
-							<div class="team_title"><a href="#">William James</a></div>
-							<div class="team_subtitle">Designer & Website</div>
-							<div class="social_list">
-								<ul>
-									<li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-									<li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-									<li><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
-								</ul>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<!-- Team Item -->
-				<div class="col-lg-3 col-md-6 team_col">
-					<div class="team_item">
-						<div class="team_image"><img src="images/team_3.jpg" alt=""></div>
-						<div class="team_body">
-							<div class="team_title"><a href="#">John Tyler</a></div>
-							<div class="team_subtitle">Quantum mechanics</div>
-							<div class="social_list">
-								<ul>
-									<li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-									<li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-									<li><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
-								</ul>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<!-- Team Item -->
-				<div class="col-lg-3 col-md-6 team_col">
-					<div class="team_item">
-						<div class="team_image"><img src="images/team_4.jpg" alt=""></div>
-						<div class="team_body">
-							<div class="team_title"><a href="#">Veronica Vahn</a></div>
-							<div class="team_subtitle">Math & Physics</div>
-							<div class="social_list">
-								<ul>
-									<li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-									<li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-									<li><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
-								</ul>
-							</div>
-						</div>
-					</div>
-				</div>
+                @endforeach
 
 			</div>
 		</div>
@@ -620,3 +559,11 @@
 	<!-- Footer -->
 
 @endsection
+@section('css')
+<link rel="stylesheet" type="text/css" href="{{ asset('css/main_styles.css') }}">
+@endsection
+@section('js')
+<script src="{{ asset('plugins/parallax-js-master/parallax.min.js') }}"></script>
+<script src="{{ asset('js/custom.js') }}"></script>
+@endsection
+

@@ -24,7 +24,6 @@ class classesFactory extends Factory
             'quantity_member' => fake()->numberBetween(0,10),
             'ca_hoc' => fake()->numberBetween(1,6),
             'status' => 1,
-            'id_course' => 1,
         ];
     }
 }

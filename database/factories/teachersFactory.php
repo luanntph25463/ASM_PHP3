@@ -23,6 +23,7 @@ class teachersFactory extends Factory
         'address' => fake()->address(),
         'image' => fake()->imageUrl(),
         'email' => fake()->safeEmail(),
+        'specialized' => fake()->text(),
         'phone' => fake()->phoneNumber(),
         ];
     }

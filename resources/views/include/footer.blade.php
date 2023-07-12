@@ -116,7 +116,6 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 <script src="{{ asset('plugins/greensock/ScrollToPlugin.min.js') }}"></script>
 <script src="{{ asset('plugins/OwlCarousel2-2.2.1/owl.carousel.js') }}"></script>
 <script src="{{ asset('plugins/easing/easing.js') }}"></script>
-<script src="{{ asset('plugins/parallax-js-master/parallax.min.js') }}"></script>
-<script src="{{ asset('js/custom.js') }}"></script>
+
 </body>
 </html>

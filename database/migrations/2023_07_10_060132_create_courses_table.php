@@ -20,6 +20,7 @@ return new class extends Migration
             $table->integer('id_class');
             $table->integer('id_category');
             $table->integer('id_promotions');
+            $table->integer('id_teachers');
             $table->boolean('status')->default(1);
             $table->timestamps();
         });

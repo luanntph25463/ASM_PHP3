@@ -26,6 +26,8 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 
 Route::get('/', [CoursesController::class, 'trangchu'])->name('trangchu');
+Route::get('/{id}', [CoursesController::class, 'trangchuFull'])->name('trangchufull');
+Route::get('/detail/{id}', [CoursesController::class, 'detailcoursres'])->name('detail.courses');
 
 Route::get('/admin', [UsersController::class, 'Dashboard'])->name('Dashboard');
 

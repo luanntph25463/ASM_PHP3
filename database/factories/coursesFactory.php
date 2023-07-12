@@ -24,6 +24,7 @@ class coursesFactory extends Factory
             'price' => fake()->numberBetween(0,10),
             'id_category' => fake()->numberBetween(1,6),
             'id_promotions' => fake()->numberBetween(1,6),
+            'id_teachers' => fake()->numberBetween(1,6),
             'id_class' => fake()->numberBetween(1,6),
             'status' => 1,
         ];

@@ -19,7 +19,6 @@ return new class extends Migration
             $table->integer('quantity_member');
             $table->integer('ca_hoc');
             $table->boolean('status')->default(1);
-            $table->integer('id_course');
             $table->timestamps();
         });
     }
