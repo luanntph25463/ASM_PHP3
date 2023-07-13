@@ -35,13 +35,15 @@
             <!-- Courses Main Content -->
             <div class="col-lg-8">
                 <div class="courses_search_container">
-                    <form action="#" id="courses_search_form" class="courses_search_form d-flex flex-row align-items-center justify-content-start">
-                        <input type="search" class="courses_search_input" placeholder="Search Courses" required="required">
-                        <select id="courses_search_select" class="courses_search_select courses_search_input">
+                    <form action="{{ route('listcourses') }}" method="POST" id="courses_search_form" class="courses_search_form d-flex flex-row align-items-center justify-content-start">
+                        @csrf
+                        @method('POST')
+                        {{-- <input type="search" name="search" class="courses_search_input" placeholder="Search Courses" > --}}
+                        <select name="select" id="courses_search_select" class="courses_search_select courses_search_input">
                             <option>All Categories</option>
-                            <option>Category</option>
-                            <option>Category</option>
-                            <option>Category</option>
+                           @foreach ($category as $item)
+                            <option value="{{$item->id}}">{{$item->name}}</option>
+                           @endforeach
                         </select>
                         <button action="submit" class="courses_search_button ml-auto">search now</button>
                     </form>
@@ -266,7 +268,6 @@
                             <button type="submit" class="newsletter_button">subscribe</button>
                         </form>
                     </div>
-
                 </div>
             </div>
         </div>

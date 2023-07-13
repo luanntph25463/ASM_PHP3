@@ -24,7 +24,7 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 |
 */
 
-Route::get('/listcourses', [CoursesController::class, 'listcourses'])->name('listcourses');
+Route::match(['get', 'post'],'listcourses', [CoursesController::class,'listCourses'])->name('listcourses');
 
 Route::get('/lienhe', [CoursesController::class, 'lienhe'])->name('lienhe');
 
