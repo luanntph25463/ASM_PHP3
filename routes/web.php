@@ -78,13 +78,11 @@ Route::prefix('/admin/')->group(function () {
     });
     Route::prefix('/promotions/')->group(function () {
         Route::get('/list', [PromotionsController::class, 'index'])->name('promotions.list');
-        Route::get('/create', [PromotionsController::class, 'create'])->name('promotions.create');
+        Route::match(['get', 'post'], '/add',  [teachersController::class, 'add'])->name('promotions.add');
+        Route::match(['get', 'post'], '/update/{id}',  [teachersController::class, 'update'])->name('promotions.update');
         Route::get('/delete', [PromotionsController::class, 'delete'])->name('promotions.delete');
         Route::get('/search', [PromotionsController::class, 'search'])->name('promotions.search');
-        // Route::post('/store', [UserController::class, 'store'])->name('users.store');
-        // Route::get('/edit/{id}', [UserController::class, 'edit'])->name('users.edit');
-        // Route::patch('/update', [UserController::class, 'update'])->name('users.update');
-        // Route::get('destroy/{product}', [UserController::class, 'destroy'])->name('users.destroy');
+
     });
     Route::prefix('/reviews/')->group(function () {
         Route::get('/list', [ReviewsController::class, 'index'])->name('reviews.list');
@@ -98,27 +96,22 @@ Route::prefix('/admin/')->group(function () {
     });
     Route::prefix('/teachers/')->group(function () {
         Route::get('/list', [teachersController::class, 'index'])->name('teachers.list');
-        Route::get('/create', [teachersController::class, 'create'])->name('teachers.create');
+        Route::match(['get', 'post'], '/add',  [teachersController::class, 'add'])->name('teachers.add');
+        Route::match(['get', 'post'], '/update/{id}',  [teachersController::class, 'update'])->name('teachers.update');
         Route::get('/search', [teachersController::class, 'search'])->name('teachers.search');
         Route::get('/delete', [teachersController::class, 'delete'])->name('teachers.delete');
-        Route::post('/store', [AdminController::class, 'store'])->name('admin.store');
-        Route::get('/edit/{id}', [AdminController::class, 'edit'])->name('admin.edit');
-        Route::patch('/update', [AdminController::class, 'update'])->name('admin.update');
-        Route::get('destroy/{product}', [AdminController::class, 'destroy'])->name('admin.destroy');
     });
     Route::prefix('/users/')->group(function () {
         Route::get('/list', [UsersController::class, 'index'])->name('users.list');
-        Route::get('/create', [UsersController::class, 'create'])->name('users.create');
+        Route::match(['get', 'post'], '/add',  [UsersController::class, 'add'])->name('users.add');
+        Route::match(['get', 'post'], '/update/{id}',  [UsersController::class, 'update'])->name('users.update');
         Route::get('/search', [UsersController::class, 'search'])->name('users.search');
         Route::get('/user-delete', [UsersController::class, 'delete'])->name('users.delete');
-        Route::post('/store', [AdminController::class, 'store'])->name('admin.store');
-        Route::get('/edit/{id}', [AdminController::class, 'edit'])->name('admin.edit');
-        Route::patch('/update', [AdminController::class, 'update'])->name('admin.update');
-        Route::get('destroy/{product}', [AdminController::class, 'destroy'])->name('admin.destroy');
     });
     Route::prefix('/courses/')->group(function () {
-        Route::get('/list', [CoursesController::class, 'index'])->name('courses.list');
-        Route::get('/create', [CoursesController::class, 'create'])->name('courses.create');
+        Route::match(['get', 'post'], '/list',[CoursesController::class, 'index'])->name('courses.list');
+        Route::match(['get', 'post'], '/add',  [CoursesController::class, 'add'])->name('courses.add');
+        Route::match(['get', 'post'], '/update/{id}',  [CoursesController::class, 'update'])->name('courses.update');
         Route::get('/excel', [CoursesController::class, 'downloadExcel'])->name('courses.excel');
         Route::get('/delete', [CoursesController::class, 'delete'])->name('courses.delete');
         Route::get('/search', [CoursesController::class, 'search'])->name('courses.search');

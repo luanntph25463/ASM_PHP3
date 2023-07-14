@@ -100,13 +100,12 @@
 
             //create
             $('#create').click(function() {
-                $('.modal-title').text('Create User')
+                $('.modal-title').text('Create Courses')
 
                 $('#form-crud').submit(function(e) {
                     e.preventDefault()
-
                     $.ajax({
-                        url: "/add",
+                        url: "/admin/courses/add",
                         type: "POST",
                         data: new FormData(this),
                         cache: false,
@@ -117,9 +116,10 @@
                             console.log(response);
                             if (response.code == 0) {
                                 $('.error_name').html(response.errors.name)
-                                $('.error_email').html(response.errors.email)
-                                $('.error_image').html(response.errors.image)
+                                $('.error_desc').html(response.errors.description)
+                                $('.error_price').html(response.errors.price)
                             } else if (response.code == 1) {
+                            console.log(response);
                                 $('.modal').hide()
                                 location.reload()
                                 alert('create user successfullly !')
@@ -134,14 +134,19 @@
             $(document).on('click', '#edit', function() {
                 $('.modal-title').text('Update User')
                 var id = $(this).attr('data')
-
+                console.log(id)
                 $.ajax({
-                    url: '/category/edit/' + id,
-                    type: "get",
+                    url: '/admin/courses/update/' + id,
+                    type: "GET",
                     success: function(response) {
+
                         $('#name').val(response.data.name)
                         $('#description').val(response.data.description)
-
+                        $('#id_promotions').val(response.data.id_promotions)
+                        $('#price').val(response.data.price)
+                        $('#id_category').val(response.data.id_category)
+                        $('#id_class').val(response.data.id_class)
+                        $('#status').val(response.data.status)
                     }
                 })
 
@@ -149,7 +154,7 @@
                     e.preventDefault()
 
                     $.ajax({
-                        url: "/update/" + id,
+                        url: "/admin/courses/update/" + id,
                         type: "POST",
                         data: new FormData(this),
                         cache: false,

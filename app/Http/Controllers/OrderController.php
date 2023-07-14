@@ -14,7 +14,9 @@ class OrderController extends Controller
     //
     public function index(){
         $order = DB::table('carts')->orderBy('id','desc')->cursorPaginate(5);
-        return view('admin.order.list',compact('order'));
+        $users = DB::table('users')->get();
+        $courses = DB::table('courses')->get();
+        return view('admin.order.list',compact('order','courses','users'));
     }
     public function create(){
         $order = DB::table('carts')->get();

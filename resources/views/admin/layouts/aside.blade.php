@@ -76,7 +76,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{ route('courses.create') }}" class="nav-link active">
+                <a href="{{ route('courses.add') }}" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
                   <p>create</p>
                 </a>
@@ -190,7 +190,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{ route('teachers.create') }}" class="nav-link active">
+                <a href="{{ route('teachers.add') }}" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
                   <p>create</p>
                 </a>
@@ -257,7 +257,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{ route('users.create') }}" class="nav-link active">
+                <a href="{{ route('users.add') }}" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
                   <p>create</p>
                 </a>

@@ -20,23 +20,33 @@
                     <div class="form-group">
                         <label style="font-weight: bold">email</label>
                         <input type="text" name="email" id="email" placeholder="email" class="form-control">
-                        <span style="color: red; font-weight: bold" class="error_email"></span>
+                        <span style="color: red; font-weight: bold" class="err_email"></span>
                     </div>
 
                     <div class="form-group">
                         <label style="font-weight: bold">Image</label>
                         <input type="file" name="image" id="image" placeholder="image" class="form-control">
-                        <span style="color: red; font-weight: bold" class="error_email"></span>
+                        <span style="color: red; font-weight: bold" class=""></span>
                     </div>
                     <div class="form-group">
                         <label style="font-weight: bold">Địa Chỉ </label>
                         <input type="text" name="address" id="address" placeholder="address" class="form-control">
-                        <span style="color: red; font-weight: bold" class="error_email"></span>
+                        <span style="color: red; font-weight: bold" class="error_address"></span>
                     </div>
                     <div class="form-group">
                         <label style="font-weight: bold">Phone </label>
                         <input type="text" name="phone" id="phone" placeholder="phone" class="form-control">
-                        <span style="color: red; font-weight: bold" class="error_email"></span>
+                        <span style="color: red; font-weight: bold" class="error_phone"></span>
+                    </div>
+                    <div class="form-group">
+                        <label style="font-weight: bold">specialized </label>
+                        <input type="text" name="specialized" id="specialized" placeholder="specialized" class="form-control">
+                        <span style="color: red; font-weight: bold" class="error_specialized"></span>
+                    </div>
+                    <div class="form-group">
+                        <label style="font-weight: bold">description </label>
+                        <input type="text" name="description" id="description" placeholder="description" class="form-control">
+                        <span style="color: red; font-weight: bold" class="err_description"></span>
                     </div>
                 </div>
 

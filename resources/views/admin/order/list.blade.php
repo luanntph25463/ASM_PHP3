@@ -46,11 +46,11 @@
         <th>Tổng Số Tiền</th>
         <th>Ngày Đặt</th>
         <th>Trạng Thái</th>
-        <th>Hạnh Động</th>
+        <th colspan="2">Hành Động</th>
     </thead>
     <tbody>
         <form action="{{ route('order.delete') }}">
-            <button type="submit" class="btn btn-danger">Delete Selected</button>
+            <button type="submit" class="btn btn-danger"><i class="fa-sharp fa-solid fa-trash"></i></button>
             @csrf
         @foreach ($order as $item)
             <tr>
@@ -74,7 +74,7 @@
                 <td>
                     <button type="button" data="{{ $item->id }}" id="edit" class="btn btn-warning"
                         data-toggle="modal" data-target="#myModal">
-                        Update
+                        <i class="fa-sharp fa-solid fa-pen-to-square"></i>
                     </button>
                 </td>
                 <td>
@@ -92,7 +92,7 @@
 </table>
 
 </div>
-@include('admin.category_courses.create')
+@include('admin.order.create')
 @endsection
 @section('script')
     <script>

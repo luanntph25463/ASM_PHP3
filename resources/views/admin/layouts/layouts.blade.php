@@ -11,6 +11,7 @@
         </div>
         <div class="col-md-10">
             @include('admin.layouts.nav')
+            @include('admin.layouts.error')
             @yield('content')
         </div>
 
