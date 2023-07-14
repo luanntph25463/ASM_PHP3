@@ -11,20 +11,36 @@
             <!-- Modal body -->
             <form id="form-crud" method="post">
                 <div class="modal-body">
-                    <div class="form-group">
-                        <label style="font-weight: bold">Tên Người Dùng</label>
-                        <input type="text" name="user_name" id="user_name" placeholder="user_name" class="form-control">
-                        <span style="color: red; font-weight: bold" class="error_name"></span>
-                    </div>
 
                     <div class="form-group">
                         <label style="font-weight: bold">content</label>
-                        <input type="text" name="content" id="descriptcontention" placeholder="content" class="form-control">
+                        <input type="text" name="content" id="content" placeholder="content" class="form-control">
+                        <span style="color: red; font-weight: bold" class="error_content"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label style="font-weight: bold">Mã Người Dùng</label>
+
+                        <select class="form-select" name="id_user" id="">
+                            @foreach ($user as $item)
+                            <option value="{{$item->id}}">{{$item->name}}</option>
+                            @endforeach
+                        </select>
+                        <span style="color: red; font-weight: bold" class="error_email"></span>
+                    </div>
+                    <div class="form-group">
+                        <label style="font-weight: bold">Khóa Học</label>
+
+                        <select class="form-select" name="course_id" id="">
+                            @foreach ($courses as $item)
+                            <option value="{{$item->id}}">{{$item->name}}</option>
+                            @endforeach
+                        </select>
                         <span style="color: red; font-weight: bold" class="error_email"></span>
                     </div>
                     <div class="form-group">
                         <label style="font-weight: bold">Đánh Giá</label>
-                        <select class="form-select" name="courses" id="">
+                        <select class="form-select" name="rating" id="">
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
@@ -33,23 +49,7 @@
                         </select>
                         <span style="color: red; font-weight: bold" class="error_email"></span>
                     </div>
-                    <div class="form-group">
-                        <label style="font-weight: bold">Trạng Thái</label>
-                        <select class="form-select" name="id_category" id="">
-                            <option value="1">Mở</option>
-                            <option value="2">Khóa</option>
-                        </select>
-                        <span style="color: red; font-weight: bold" class="error_email"></span>
-                    </div>
-                    <div class="form-group">
-                        <label style="font-weight: bold">Người Comments</label>
-                        <select class="form-select" name="users" id="">
-                            @foreach ($users as $item)
-                            <option value="{{$item->id}}">{{$item->name}}</option>
-                            @endforeach
-                        </select>
-                        <span style="color: red; font-weight: bold" class="error_email"></span>
-                    </div>
+
                 </div>
 
                 <!-- Modal footer -->

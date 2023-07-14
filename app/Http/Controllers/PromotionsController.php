@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\promotions;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class PromotionsController extends Controller
 {
@@ -18,11 +19,9 @@ class PromotionsController extends Controller
         if ($request->post()) {
             $validator = Validator::make($request->all(), [
                 'name' => 'required',
-                'email' => 'required| email',
-                'phone' => 'required',
-                'address' => 'required',
-                'description' => 'required',
-                'specialized' => 'required',
+                'start_date' => 'required',
+                'end_date' => 'required',
+                'discount' => 'required',
             ]);
             if ($validator->fails()) {
                 return response()->json([
@@ -30,13 +29,12 @@ class PromotionsController extends Controller
                     'errors' => $validator->errors()->toArray()
                 ]);
             }
-            $user = new teachers;
+            $user = new promotions;
             $user->name = $request->input('name');
-            $user->email = $request->input('email');
-            $user->phone = $request->input('phone');
-            $user->address = $request->input('address');
-            $user->description = $request->input('description');
-            $user->specialized = $request->input('specialized');
+            $user->start_date = $request->input('start_date');
+            $user->end_date = $request->input('end_date');
+            $user->discount = $request->input('discount');
+            $user->status = $request->input('status');
             $user->save();
             return response()->json([
                 'code' => 1,
@@ -48,11 +46,9 @@ class PromotionsController extends Controller
         if ($request->post()) {
             $validator = Validator::make($request->all(), [
                 'name' => 'required',
-                'email' => 'required| email',
-                'phone' => 'required',
-                'address' => 'required',
-                'description' => 'required',
-                'specialized' => 'required',
+                'start_date' => 'required',
+                'end_date' => 'required',
+                'discount' => 'required',
             ]);
             if ($validator->fails()) {
                 return response()->json([
@@ -61,18 +57,18 @@ class PromotionsController extends Controller
                 ]);
             }
             $user = promotions::find($id);
+
             $user->name = $request->input('name');
-            $user->email = $request->input('email');
-            $user->phone = $request->input('phone');
-            $user->address = $request->input('address');
-            $user->description = $request->input('description');
-            $user->specialized = $request->input('specialized');
+            $user->start_date = $request->input('start_date');
+            $user->end_date = $request->input('end_date');
+            $user->discount = $request->input('discount');
+            $user->status = $request->input('status');
             $user->save();
             return response()->json([
                 'code' => 1,
             ]);
         }
-        $data = teachers::find($id);
+        $data = promotions::find($id);
         return response()->json([
             'data' => $data,
         ]);

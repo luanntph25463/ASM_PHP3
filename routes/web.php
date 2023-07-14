@@ -37,12 +37,11 @@ Route::prefix('/admin/')->group(function () {
     Route::get('/admin', [UsersController::class, 'Dashboard'])->name('Dashboard');
     Route::prefix('/category/')->group(function () {
         Route::get('/list', [CategoryController::class, 'index'])->name('category.list');
-        Route::get('/create', [CategoryController::class, 'create'])->name('category.create');
+        Route::match(['get', 'post'], '/add',  [CategoryController::class, 'add'])->name('category.add');
+        Route::match(['get', 'post'], '/update/{id}',  [CategoryController::class, 'update'])->name('category.update');
         Route::get('/delete', [CategoryController::class, 'delete'])->name('category.delete');
         Route::get('/search', [CategoryController::class, 'search'])->name('category.search');
         Route::get('/edit/{id}', [CategoryController::class, 'edit'])->name('category.edit');
-        Route::patch('/update', [ProductsControllers::class, 'update'])->name('product.update');
-        Route::get('destroy/{product}', [ProductsControllers::class, 'destroy'])->name('product.destroy');
     });
     Route::prefix('/banners/')->group(function () {
         Route::get('/list', [BannerController::class, 'index'])->name('banners.list');
@@ -56,17 +55,16 @@ Route::prefix('/admin/')->group(function () {
     });
     Route::prefix('/classes/')->group(function () {
         Route::get('/list', [ClassesController::class, 'index'])->name('classes.list');
-        Route::get('/create', [ClassesController::class, 'create'])->name('classes.create');
+        Route::match(['get', 'post'], '/add',  [ClassesController::class, 'add'])->name('classes.add');
+        Route::match(['get', 'post'], '/update/{id}',  [ClassesController::class, 'update'])->name('classes.update');
         Route::get('/delete', [ClassesController::class, 'delete'])->name('classes.delete');
         Route::get('/search', [ClassesController::class, 'search'])->name('classes.search');
-        Route::post('/store', [ReviewsController::class, 'store'])->name('reivew.store');
-        Route::get('/edit/{id}', [ReviewsController::class, 'edit'])->name('reivew.edit');
-        Route::patch('/update', [ReviewsController::class, 'update'])->name('reivew.update');
-        Route::get('destroy/{product}', [ReviewsController::class, 'destroy'])->name('reivew.destroy');
     });
     Route::prefix('/order/')->group(function () {
         Route::get('/list', [OrderController::class, 'index'])->name('order.list');
         Route::get('/list/{id}', [OrderController::class, 'newPage'])->name('order.page');
+        Route::match(['get', 'post'], '/add',  [OrderController::class, 'add'])->name('order.add');
+        Route::match(['get', 'post'], '/update/{id}',  [OrderController::class, 'update'])->name('order.update');
         Route::get('/create', [OrderController::class, 'create'])->name('order.create');
         Route::get('/delete', [OrderController::class, 'delete'])->name('order.delete');
         Route::get('/search', [OrderController::class, 'search'])->name('order.search');
@@ -78,21 +76,17 @@ Route::prefix('/admin/')->group(function () {
     });
     Route::prefix('/promotions/')->group(function () {
         Route::get('/list', [PromotionsController::class, 'index'])->name('promotions.list');
-        Route::match(['get', 'post'], '/add',  [teachersController::class, 'add'])->name('promotions.add');
-        Route::match(['get', 'post'], '/update/{id}',  [teachersController::class, 'update'])->name('promotions.update');
+        Route::match(['get', 'post'], '/add',  [PromotionsController::class, 'add'])->name('promotions.add');
+        Route::match(['get', 'post'], '/update/{id}',  [PromotionsController::class, 'update'])->name('promotions.update');
         Route::get('/delete', [PromotionsController::class, 'delete'])->name('promotions.delete');
         Route::get('/search', [PromotionsController::class, 'search'])->name('promotions.search');
-
     });
     Route::prefix('/reviews/')->group(function () {
         Route::get('/list', [ReviewsController::class, 'index'])->name('reviews.list');
-        Route::get('/create', [ReviewsController::class, 'create'])->name('reviews.create');
-        Route::get('/search', [ReviewsController::class, 'search'])->name('reviews.search');
+        Route::match(['get', 'post'], '/add',  [ReviewsController::class, 'add'])->name('reviews.add');
+        Route::match(['get', 'post'], '/update/{id}',  [ReviewsController::class, 'update'])->name('reviews.update');
+           Route::get('/search', [ReviewsController::class, 'search'])->name('reviews.search');
         Route::get('/delete', [ReviewsController::class, 'delete'])->name('reviews.delete');
-        Route::post('/store', [AdminController::class, 'store'])->name('admin.store');
-        Route::get('/edit/{id}', [AdminController::class, 'edit'])->name('admin.edit');
-        Route::patch('/update', [AdminController::class, 'update'])->name('admin.update');
-        Route::get('destroy/{product}', [AdminController::class, 'destroy'])->name('admin.destroy');
     });
     Route::prefix('/teachers/')->group(function () {
         Route::get('/list', [teachersController::class, 'index'])->name('teachers.list');

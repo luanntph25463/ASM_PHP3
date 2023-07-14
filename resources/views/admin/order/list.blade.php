@@ -95,100 +95,99 @@
 @include('admin.order.create')
 @endsection
 @section('script')
-    <script>
-        $(document).ready(function() {
-      $('#my-select').on('change', function() {
-    var value = $(this).val();
-    // console.log(value)
-    window.location.href = '/order/list/' + value;
+<script>
+    $(document).ready(function() {
 
-});
-            //create
-            $('#create').click(function() {
-                $('.modal-title').text('Create User')
+        //create
+        $('#create').click(function() {
+            $('.modal-title').text('Create Courses')
 
-                $('#form-crud').submit(function(e) {
-                    e.preventDefault()
-
-                    $.ajax({
-                        url: "/add",
-                        type: "POST",
-                        data: new FormData(this),
-                        cache: false,
-                        processData: false,
-                        dataType: 'json',
-                        contentType: false,
-                        success: function(response) {
-                            console.log(response);
-                            if (response.code == 0) {
-                                $('.error_name').html(response.errors.name)
-                                $('.error_email').html(response.errors.email)
-                                $('.error_image').html(response.errors.image)
-                            } else if (response.code == 1) {
-                                $('.modal').hide()
-                                location.reload()
-                                alert('create user successfullly !')
-                            }
-                        }
-                    })
-                })
-            })
-
-
-            //upddate
-            $(document).on('click', '#edit', function() {
-                $('.modal-title').text('Update User')
-                var id = $(this).attr('data')
-
+            $('#form-crud').submit(function(e) {
+                e.preventDefault()
                 $.ajax({
-                    url: '/category/edit/' + id,
-                    type: "get",
+                    url: "/admin/order/add",
+                    type: "POST",
+                    data: new FormData(this),
+                    cache: false,
+                    processData: false,
+                    dataType: 'json',
+                    contentType: false,
                     success: function(response) {
-                        $('#name').val(response.data.name)
-                        $('#description').val(response.data.description)
-
+                        console.log(response);
+                        if (response.code == 0) {
+                            $('.error_orderdate').html(response.errors.order_date)
+                            $('.error_quantity').html(response.errors.quantity)
+                            $('.error_total_amount').html(response.errors.total_amount)
+                        } else if (response.code == 1) {
+                        console.log(response);
+                            $('.modal').hide()
+                            location.reload()
+                            alert('create user successfullly !')
+                        }
                     }
                 })
-
-                $('#form-crud').submit(function(e) {
-                    e.preventDefault()
-
-                    $.ajax({
-                        url: "/update/" + id,
-                        type: "POST",
-                        data: new FormData(this),
-                        cache: false,
-                        processData: false,
-                        dataType: 'json',
-                        contentType: false,
-                        success: function(response) {
-                            console.log(response);
-                            if (response.code == 0) {
-                                $('.error_name').html(response.errors.name)
-                                $('.error_email').html(response.errors.email)
-                                $('.error_image').html(response.errors.image)
-                            } else if (response.code == 1) {
-                                $('.modal').hide()
-                                location.reload()
-                                alert('update user successfullly !')
-                            }
-                        }
-                    })
-                })
-            })
-
-            $(document).on('click', '#delete', function() {
-                var id = $(this).attr('data')
-                $.ajax({
-                    url: '/delete/' + id,
-                    type: "get",
-                    success: function(response) {
-                        location.reload()
-                        alert('delete user successfullly !')
-                    }
-                })
-
             })
         })
-    </script>
+
+
+        //upddate
+        $(document).on('click', '#edit', function() {
+            $('.modal-title').text('Update User')
+            var id = $(this).attr('data')
+            console.log(id)
+            $.ajax({
+                url: '/admin/order/update/' + id,
+                type: "GET",
+                success: function(response) {
+
+                    $('#id_courses').val(response.data.course)
+                    $('#quantity').val(response.data.quantity)
+                    $('#order_date').val(response.data.order_date)
+                    $('#status').val(response.data.status)
+                    $('#id_user').val(response.data.id_user)
+                    $('#total_amount').val(response.data.total_amount)
+                }
+            })
+
+            $('#form-crud').submit(function(e) {
+                e.preventDefault()
+
+                $.ajax({
+                    url: "/admin/order/update/" + id,
+                    type: "POST",
+                    data: new FormData(this),
+                    cache: false,
+                    processData: false,
+                    dataType: 'json',
+                    contentType: false,
+                    success: function(response) {
+                        console.log(response);
+                        if (response.code == 0) {
+                            $('.error_orderdate').html(response.errors.order_date)
+                            $('.error_quantity').html(response.errors.quantity)
+                            $('.error_total_amount').html(response.errors.total_amount)
+                        } else if (response.code == 1) {
+                            $('.modal').hide()
+                            location.reload()
+                            alert('update user successfullly !')
+                        }
+                    }
+                })
+            })
+        })
+
+        $(document).on('click', '#delete', function() {
+            var id = $(this).attr('data')
+            $.ajax({
+                url: '/delete/' + id,
+                type: "get",
+                success: function(response) {
+                    location.reload()
+                    alert('delete user successfullly !')
+                }
+            })
+
+        })
+    })
+</script>
 @endsection

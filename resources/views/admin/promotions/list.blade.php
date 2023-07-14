@@ -104,13 +104,13 @@
                         console.log(response);
                         if (response.code == 0) {
                             $('.error_name').html(response.errors.name)
-                            $('.error_address').html(response.errors.address)
-                            $('.error_phone').html(response.errors.phone)
-                            $('.err_email').html(response.errors.email)
-                            $('.error_specialized').html(response.errors.specialized)
-                            $('.err_description').html(response.errors.description)
+                            $('.error_start_date').html(response.errors.start_date)
+                            $('.error_end_date').html(response.errors.end_date)
+                            $('.error_discount').html(response.errors.discount)
                         } else if (response.code == 1) {
                         console.log(response);
+            // console.log($user)
+
                             $('.modal').hide()
                             location.reload()
                             alert('create user successfullly !')
@@ -130,13 +130,10 @@
                 url: '/admin/promotions/update/' + id,
                 type: "GET",
                 success: function(response) {
-
                     $('#name').val(response.data.name)
-                    $('#address').val(response.data.address)
-                    $('#phone').val(response.data.phone)
-                    $('#email').val(response.data.email)
-                    $('#description').val(response.data.description)
-                    $('#specialized').val(response.data.specialized)
+                    $('#start_date').val(response.data.start_date)
+                    $('#end_date').val(response.data.end_date)
+                    $('#discount').val(response.data.discount)
                 }
             })
             $('#form-crud').submit(function(e) {
@@ -154,11 +151,9 @@
                         console.log(response);
                         if (response.code == 0) {
                             $('.error_name').html(response.errors.name)
-                            $('.error_address').html(response.errors.address)
-                            $('.error_phone').html(response.errors.phone)
-                            $('.err_email').html(response.errors.email)
-                            $('.error_specialized').html(response.errors.specialized)
-                            $('.err_description').html(response.errors.description)
+                            $('.error_start_date').html(response.errors.start_date)
+                            $('.error_end_date').html(response.errors.end_date)
+                            $('.error_discount').html(response.errors.discount)
                         } else if (response.code == 1) {
                             $('.modal').hide()
                             location.reload()

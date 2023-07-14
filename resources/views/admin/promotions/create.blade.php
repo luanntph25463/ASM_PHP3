@@ -17,27 +17,26 @@
                     </div>
                     <div class="form-group">
                         <label style="font-weight: bold">Ngày Bắt Đầu</label>
-                        <input type="date" name="image" id="start_date" placeholder="start_date" class="form-control">
-                        <span style="color: red; font-weight: bold" class="error_name"></span>
+                        <input type="date" name="start_date" id="start_date" placeholder="start_date" class="form-control">
+                        <span style="color: red; font-weight: bold" class="error_start_date"></span>
                     </div>
                     <div class="form-group">
                         <label style="font-weight: bold">Ngày Kết Thúc</label>
                         <input type="date" name="end_date" id="end_date" placeholder="end_date" class="form-control">
-                        <span style="color: red; font-weight: bold" class="error_email"></span>
+                        <span style="color: red; font-weight: bold" class="error_end_date"></span>
                     </div>
                     <div class="form-group">
                         <label style="font-weight: bold">Giảm Giá</label>
                         <input type="text" name="discount" id="discount" placeholder="discount" class="form-control">
-                        <span style="color: red; font-weight: bold" class="error_email"></span>
+                        <span style="color: red; font-weight: bold" class="error_discount"></span>
                     </div>
 
                     <div class="form-group">
                         <label style="font-weight: bold">Trang Thái</label>
-                        <select class="form-select" name="id_category" id="">
+                        <select class="form-select" name="status" id="">
                             <option value="1">Mở </option>
                             <option value="2">Đóng</option>
                         </select>
-                        <span style="color: red; font-weight: bold" class="error_email"></span>
                     </div>
                 </div>
 

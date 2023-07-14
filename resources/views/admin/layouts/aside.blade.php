@@ -99,7 +99,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{ route('order.create') }}" class="nav-link active">
+                <a href="{{ route('order.add') }}" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
                   <p>create</p>
                 </a>
@@ -145,7 +145,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{ route('category.create') }}" class="nav-link active">
+                <a href="{{ route('category.add') }}" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
                   <p>create</p>
                 </a>
@@ -167,7 +167,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{ route('reviews.create') }}" class="nav-link active">
+                <a href="{{ route('reviews.add') }}" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
                   <p>create</p>
                 </a>
@@ -212,7 +212,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{ route('promotions.create') }}" class="nav-link active">
+                <a href="{{ route('promotions.add') }}" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
                   <p>create</p>
                 </a>
@@ -235,7 +235,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{ route('classes.create') }}" class="nav-link active">
+                <a href="{{ route('classes.add') }}" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
                   <p>create</p>
                 </a>

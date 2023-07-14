@@ -20,7 +20,7 @@
                     <div class="form-group">
                         <label style="font-weight: bold">Description</label>
                         <input type="text" name="description" id="description" placeholder="description" class="form-control">
-                        <span style="color: red; font-weight: bold" class="error_email"></span>
+                        <span style="color: red; font-weight: bold" class="err_description"></span>
                     </div>
                 </div>
 
