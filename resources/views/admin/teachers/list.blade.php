@@ -44,7 +44,7 @@
     </thead>
     <tbody>
         <form action="{{ route('teachers.delete') }}">
-            <button type="submit" class="btn btn-danger">Delete Selected</button>
+            <button type="submit" class="btn btn-danger"><i class="fa-sharp fa-solid fa-trash"></i></button>
             @csrf
         @foreach ($teachers as $item)
             <tr>
@@ -62,12 +62,7 @@
                 <td>
                     <button type="button" data="{{ $item->id }}" id="edit" class="btn btn-warning"
                         data-toggle="modal" data-target="#myModal">
-                        Update
-                    </button>
-                </td>
-                <td>
-                    <button type="button" data="{{ $item->id }}" id="delete" class="btn btn-danger">
-                        Delete
+                        <i class="fa-sharp fa-solid fa-pen-to-square"></i>
                     </button>
                 </td>
             </tr>
@@ -81,7 +76,7 @@
 </table>
 
 </div>
-@include('admin.category_courses.create')
+@include('admin.teachers.create')
 @endsection
 @section('script')
     <script>

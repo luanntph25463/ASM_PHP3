@@ -92,7 +92,7 @@
 </table>
 
 </div>
-@include('admin.category_courses.create')
+@include('admin.courses.create')
 @endsection
 @section('script')
     <script>

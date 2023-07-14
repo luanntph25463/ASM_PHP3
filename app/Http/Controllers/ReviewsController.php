@@ -11,7 +11,9 @@ class ReviewsController extends Controller
     //
     public function index(){
         $reviews = DB::table('reviews')->orderBy('id','desc')->cursorPaginate(5);
-        return view('admin.reviews.list',compact('reviews'));
+        $courses = DB::table('courses')->get();
+        $users = DB::table('users')->get();
+        return view('admin.reviews.list',compact('reviews','courses','users'));
     }
     public function create(){
         $reviews = DB::table('reviews')->get();

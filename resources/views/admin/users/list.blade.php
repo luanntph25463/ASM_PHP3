@@ -30,11 +30,14 @@
 <div class="col-md-12">
     <!-- Button to Open the Modal -->
 <button type="button" id="create" class="btn btn-primary px-5 py-2 m-3" data-toggle="modal" data-target="#myModal">
+    <i class="fa-sharp fa-solid fa-plus"></i>
+
     Create
 </button>
 
 <table class="table table-dark m-2">
     <thead>
+        <th></th>
         <th>ID</th>
         <th>Tên</th>
         <th>Ảnh Người Dùng</th>
@@ -44,11 +47,11 @@
         <th>Địa Chỉ</th>
         <th>Quyền</th>
         <th>Trạng Thái</th>
-        <th colspan="2">Action</th>
+        <th colspan="1">Action</th>
     </thead>
     <tbody>
         <form action="{{ route('users.delete') }}">
-            <button type="submit" class="btn btn-danger">Delete Selected</button>
+            <button type="submit" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
             @csrf
         @foreach ($users as $item)
             <tr>
@@ -82,14 +85,11 @@
                 <td>
                     <button type="button" data="{{ $item->id }}" id="edit" class="btn btn-warning"
                         data-toggle="modal" data-target="#myModal">
-                        Update
+                        <i class="fa-sharp fa-solid fa-pen-to-square"></i>
+
                     </button>
                 </td>
-                <td>
-                    <button type="button" data="{{ $item->id }}" id="delete" class="btn btn-danger">
-                        Delete
-                    </button>
-                </td>
+
             </tr>
         @endforeach
     </form>
@@ -101,7 +101,7 @@
 </table>
 
 </div>
-@include('admin.category_courses.create')
+@include('admin.users.create')
 @endsection
 @section('script')
     <script>

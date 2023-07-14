@@ -19,7 +19,10 @@ class UsersController extends Controller
     }
     public function delete(Request $request){
         $ids = $request->input('ids');
-        User::whereIn('id', $ids)->delete();
+        if($ids > 0){
+            User::whereIn('id', $ids)->delete();
+
+        }
         return redirect()->back();
     }
     public function search(Request $request){

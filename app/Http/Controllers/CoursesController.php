@@ -14,8 +14,12 @@ class CoursesController extends Controller
     //
     public function index()
     {
-        $courses = DB::table('courses');
-        return view('admin.courses.list', compact('courses'));
+        $courses = DB::table('courses')->orderBy('id', 'desc')->cursorPaginate(5);
+        $category = DB::table('category_courses')->get();
+        $promotions = DB::table('promotions')->get();
+        $classes = DB::table('classes')->get();
+
+        return view('admin.courses.list', compact('courses','category','promotions','classes'));
     }
     public function trangchu()
     {
@@ -230,6 +234,9 @@ class CoursesController extends Controller
         return view('include.trangchu.listCourses', compact( 'courses','teachers','category'));
     }
 
+
+
+
     public function delete(Request $request)
     {
         $ids = $request->input('ids');
@@ -240,6 +247,10 @@ class CoursesController extends Controller
     {
         $search = $request->input('search');
         $courses = DB::table('courses')->where('name', 'LIKE', '%' . $search . '%')->orderBy('id', 'desc')->cursorPaginate(5);
+        return view('admin.courses.list', compact('courses'));
+    }
+    public function create()
+    {
         return view('admin.courses.list', compact('courses'));
     }
     public function downloadExcel()
