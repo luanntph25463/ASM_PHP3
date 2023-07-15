@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
         $this->call([category_coursesSeeder::class,teachersSeeder::class,UsersSeeder::class,bannersSeeder::class,reviewsSeeder::class
-    ,classesSeeder::class,promotionsSeeder::class,coursesSeeder::class,cartsSeeder::class]);
+    ,classesSeeder::class,promotionsSeeder::class,coursesSeeder::class,cartsSeeder::class,ImageDetailSeed::class]);
 
     }
 }
