@@ -62,7 +62,7 @@
 
                 <td>{{ $item->id }}</td>
                 <td>{{ $item->name	 }}</td>
-                <td><img width="50" src="{{ $item->image }}" alt="">
+                <td><img width="50" src="/img/{{$item->image}}" alt="">
                     </td>
                 <td>{{ $item->email }}</td>
                 <td>{{ $item->password }}</td>
@@ -141,7 +141,7 @@
         })
 
 
-        //upddate
+        // upddate
         $(document).on('click', '#edit', function() {
             $('.modal-title').text('Update User')
             var id = $(this).attr('data')

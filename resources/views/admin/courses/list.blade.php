@@ -62,7 +62,7 @@
                 </td>
                 <td>{{ $item->id }}</td>
                 <td>{{ $item->name	 }}</td>
- <td><img width="100" src="{{ $item->image }}" alt=""></td>
+ <td><img width="100" src="/img/{{ $item->image }}" alt=""></td>
                 <td>{{ $item->description	 }}</td>
                 <td>{{ $item->price }}</td>
                 <td>{{ $item->id_category }}</td>

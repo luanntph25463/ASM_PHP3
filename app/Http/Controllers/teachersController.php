@@ -31,14 +31,18 @@ class teachersController extends Controller
                     'errors' => $validator->errors()->toArray()
                 ]);
             }
-            $user = new teachers;
-            $user->name = $request->input('name');
-            $user->email = $request->input('email');
-            $user->phone = $request->input('phone');
-            $user->address = $request->input('address');
-            $user->description = $request->input('description');
-            $user->specialized = $request->input('specialized');
-            $user->save();
+            $teachers = new teachers();
+            $teachers->name = $request->input('name');
+            $teachers->email = $request->input('email');
+            $teachers->phone = $request->input('phone');
+            $teachers->address = $request->input('address');
+            $teachers->description = $request->input('description');
+            $teachers->specialized = $request->input('specialized');
+            $image = $request->file('image');
+            $newName = time() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('/img/'), $newName);
+            $teachers->image = $newName;
+            $teachers->save();
             return response()->json([
                 'code' => 1,
             ]);
@@ -68,6 +72,14 @@ class teachersController extends Controller
             $user->address = $request->input('address');
             $user->description = $request->input('description');
             $user->specialized = $request->input('specialized');
+            $image = $request->file('image');
+            if($image == ''){
+                $user->image =$request->input('image_hidden');
+            }else{
+                $newName = time() . '.' . $image->getClientOriginalExtension();
+                $image->move(public_path('/img/'), $newName);
+                $user->image = $newName;
+            }
             $user->save();
             return response()->json([
                 'code' => 1,

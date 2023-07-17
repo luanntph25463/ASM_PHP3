@@ -268,7 +268,19 @@ class CoursesController extends Controller
                     'errors' => $validator->errors()->toArray()
                 ]);
             }
-            courses::create($request->except("_token"));
+            $user = new courses();
+            $user->name = $request->input('name');
+            $user->description = $request->input('description');
+            $user->price = $request->input('price');
+            $user->id_category = $request->input('id_category');
+            $user->id_promotions = $request->input('id_promotions');
+            $user->status = $request->input('status');
+            $user->id_class = $request->input('id_class');
+            $image = $request->file('image');
+            $newName = time() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('/img/'), $newName);
+            $user->image = $newName;
+            $user->save();
             return response()->json([
                 'code' => 1,
             ]);
@@ -296,6 +308,14 @@ class CoursesController extends Controller
             $user->id_class = $request->input('id_class');
             $user->id_promotions = $request->input('id_promotions');
             $user->status = $request->input('status');
+            $image = $request->file('image');
+            if($image == ''){
+                $user->image =$request->input('image_hidden');
+            }else{
+                $newName = time() . '.' . $image->getClientOriginalExtension();
+                $image->move(public_path('/img/'), $newName);
+                $user->image = $newName;
+            }
             $user->save();
             return response()->json([
                 'code' => 1,

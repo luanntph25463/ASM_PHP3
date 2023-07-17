@@ -31,7 +31,19 @@ class UsersController extends Controller
                     'errors' => $validator->errors()->toArray()
                 ]);
             }
-            Users::create($request->except("_token"));
+            $users = new Users();
+            $users->name = $request->input('name');
+            $users->email = $request->input('email');
+            $users->phone = $request->input('phone');
+            $users->address = $request->input('address');
+            $users->password = $request->input('password');
+            $users->status = $request->input('status');
+            $users->role = $request->input('role');
+            $image = $request->file('image');
+            $newName = time() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('/img/'), $newName);
+            $users->image = $newName;
+            $users->save();
             return response()->json([
                 'code' => 1,
             ]);
@@ -61,6 +73,14 @@ class UsersController extends Controller
             $user->address = $request->input('address');
             $user->role = $request->input('role');
             $user->status = $request->input('status');
+            $image = $request->file('image');
+            if($image == ''){
+                $user->image =$request->input('image_hidden');
+            }else{
+                $newName = time() . '.' . $image->getClientOriginalExtension();
+                $image->move(public_path('/img/'), $newName);
+                $user->image = $newName;
+            }
             $user->save();
             return response()->json([
                 'code' => 1,
@@ -70,6 +90,12 @@ class UsersController extends Controller
         return response()->json([
             'data' => $data,
         ]);
+    }
+    public function login(Request $request)
+    {
+        if ($request->post()) {
+        }
+        return view('include.trangchu.login');
     }
     public function delete(Request $request){
         $ids = $request->input('ids');

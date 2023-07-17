@@ -54,7 +54,7 @@
                 </td>
                 <td>{{ $item->id }}</td>
                 <td>{{ $item->name	 }}</td>
-                <td><img width="50" src="{{ $item->image }}" alt="">
+                <td><img width="50" src="/img/{{ $item->image }}" alt="">
                     </td>
                 <td>{{ $item->email }}</td>
                 <td>{{ $item->phone }}</td>
