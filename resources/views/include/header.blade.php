@@ -64,10 +64,7 @@
 							<nav class="main_nav_contaner ml-auto">
 								<ul class="main_nav">
 									<li class="active"><a href="#">Home</a></li>
-									<li><a href="about.html">About</a></li>
-									<li><a href="courses.html">Courses</a></li>
 									<li><a href="{{ route('listcourses') }}">List Courses</a></li>
-									<li><a href="#">Page</a></li>
 									<li><a href="{{ route('lienhe') }}">Contact</a></li>
 								</ul>
 								<div class="search_button"><i class="fa fa-search" aria-hidden="true"></i></div>

@@ -104,11 +104,12 @@ class CoursesController extends Controller
         // dd();
         // $hoc = $courses->start_date - $courses->end_date;
         $teachers = DB::table('teachers')->where('id', '=', $courses->id_teachers)->first();
+        $promotions = DB::table('promotions')->limit(3)->get();
         $count = DB::table('reviews')->where('course_id', '=', $courses->id)->count();
         $reviews = DB::table('reviews')->join('users', 'reviews.id_user', 'users.id')->select('reviews.*', 'users.image', 'users.name')->where('course_id', '=', $id)->get();
         // dd($reviews);
         $category = DB::table('category_courses')->limit(4)->get();
-        return view('include.trangchu.detail', compact('courses', 'reviews', 'age', 'count', 'teachers'));
+        return view('include.trangchu.detail', compact('courses','promotions', 'reviews', 'age', 'count', 'teachers'));
     }
     public function trangchuFull($id)
     {
@@ -285,6 +286,76 @@ class CoursesController extends Controller
                 'code' => 1,
             ]);
         }
+    }
+    public function cart(Request $request,$id)
+    {
+        if ($request->post()) {
+            $validator = Validator::make($request->all(), [
+                'name' => 'required',
+                'description' => 'required',
+                'price' => 'required|min:0.01| numeric',
+            ]);
+            if ($validator->fails()) {
+                return response()->json([
+                    'code' => 0,
+                    'errors' => $validator->errors()->toArray()
+                ]);
+            }
+            $user = new courses();
+            $user->name = $request->input('name');
+            $user->description = $request->input('description');
+            $user->price = $request->input('price');
+            $user->id_category = $request->input('id_category');
+            $user->id_promotions = $request->input('id_promotions');
+            $user->status = $request->input('status');
+            $user->id_class = $request->input('id_class');
+            $image = $request->file('image');
+            $newName = time() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('/img/'), $newName);
+            $user->image = $newName;
+            $user->save();
+            return response()->json([
+                'code' => 1,
+            ]);
+        }
+        $courses = DB::table('courses')
+        ->join('category_courses', 'courses.id_category', '=', 'category_courses.id')
+
+        ->join('teachers', 'courses.id_teachers', '=', 'teachers.id')
+        ->join('classes', 'courses.id_class', '=', 'classes.id')
+        ->join('carts', 'carts.id_course', '=', 'courses.id')
+        ->join('users', 'carts.id_user', '=', 'users.id')
+        ->leftJoin('reviews', 'courses.id', '=', 'reviews.course_id')
+        ->select('courses.*', 'category_courses.name as tenDM', 'classes.start_date', 'classes.end_date', 'classes.name as tenLop', 'teachers.name as tenGiaoVien', 'classes.ca_hoc', 'classes.quantity_member as SiSo', DB::raw('AVG(reviews.rating) as DanhGia'))
+        ->where('users.id', '=', $id)
+        ->groupBy(
+            'courses.id',
+            'classes.id',
+            'teachers.id',
+            'category_courses.name',
+            'courses.name',
+            'classes.name',
+            'teachers.name',
+            'classes.quantity_member',
+            'courses.description',
+            'courses.image',
+            'courses.price',
+            'courses.id_class',
+            'courses.id_category',
+            'classes.start_date',
+            'classes.end_date',
+            'courses.id_promotions',
+            'courses.id_teachers',
+            'courses.status',
+            'classes.ca_hoc',
+            'courses.created_at',
+            'courses.updated_at'
+        )
+        ->distinct()
+        ->first();
+        dd($courses);
+        return view('include.trangchu.Cart',compact('courses'));
+
     }
     public function update(Request $request, $id)
     {
