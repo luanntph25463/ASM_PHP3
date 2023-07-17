@@ -41,7 +41,7 @@
 									</li>
 								</ul>
 								<div class="top_bar_login ml-auto">
-									<div class="login_button"><a href="#">Register or Login</a></div>
+									<div class="login_button"><a href="{{ route('user.login') }}">Register or Login</a></div>
 								</div>
 							</div>
 						</div>
@@ -57,7 +57,7 @@
 					<div class="col">
 						<div class="header_content d-flex flex-row align-items-center justify-content-start">
 							<div class="logo_container">
-								<a href="#">
+								<a href="{{ route('trangchu') }}">
 									<div class="logo_text">Unic<span>at</span></div>
 								</a>
 							</div>
@@ -115,3 +115,4 @@
 			</form>
 		</div>
 	</div>
+

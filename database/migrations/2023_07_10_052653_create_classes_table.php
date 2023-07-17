@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('classes', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->date('start_date');
-            $table->date('end_date');
-            $table->integer('quantity_member');
-            $table->integer('ca_hoc');
+            $table->string('name')->nullable();
+            $table->date('start_date')->nullable();
+            $table->date('end_date')->nullable();
+            $table->integer('quantity_member')->nullable();
+            $table->integer('ca_hoc')->nullable();
             $table->boolean('status')->default(1);
             $table->timestamps();
         });

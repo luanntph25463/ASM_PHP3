@@ -290,10 +290,30 @@
                                         </ul>
                                         @endforeach
 
-                                        <div class="add_comment_container">
-                                            <div class="add_comment_title">Add a review</div>
-                                            <div class="add_comment_text">You must be <a href="#">logged</a> in to post a comment.</div>
+                                        @if(session()->has('user'))
+                                        <form action="{{ route('addComment') }}" method="POST">
+                                            <input type="hidden" name="id_course" value="{{$courses->id}}">
+                                            <input type="hidden" name="id_user" value="{{session('user')->first()->id}}">
+                                            @csrf
+                                        <div class="panel-body">
+                                            <textarea class="form-control" rows="2" placeholder="What are you thinking?" name="content">
+                                            </textarea>
+                                            <div class="mar-top clearfix">
+                                                <button class="btn btn-sm btn-primary pull-right" type="submit"><i
+                                                        class="fa fa-pencil fa-fw"></i> Share</button>
+                                                <a class="btn btn-trans btn-icon fa fa-video-camera add-tooltip" href="#"></a>
+                                                <a class="btn btn-trans btn-icon fa fa-camera add-tooltip" href="#"></a>
+                                                <a class="btn btn-trans btn-icon fa fa-file add-tooltip" href="#"></a>
+                                            </div>
                                         </div>
+                                    </form>
+                                    @else
+
+                                    <div class="add_comment_container">
+                                        <div class="add_comment_title">Add a review</div>
+                                        <div class="add_comment_text">You must be <a href="#">logged</a> in to post a comment.</div>
+                                    </div>
+                                    @endif
                                     </div>
                                 </div>
 

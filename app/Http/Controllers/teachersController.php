@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TeachersRequest;
 use App\Models\teachers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
 class teachersController extends Controller
@@ -47,6 +49,18 @@ class teachersController extends Controller
                 'code' => 1,
             ]);
         }
+    }
+    public function infomation(TeachersRequest $request,$id)
+    {
+        if ($request->post()) {
+            $student  = DB::table('teachers')->where('id',$id)->update($request->except("_token"));
+            if($student){
+                Session::flash('success','Sửa Thành Công');
+                return redirect()->route('trangchu');
+            }
+        }
+        $data = teachers::find($id);
+        return view('include.trangchu.infomation',compact('data'));
     }
     public function update(Request $request, $id)
     {

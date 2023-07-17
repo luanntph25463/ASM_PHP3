@@ -9,6 +9,13 @@ class teachers extends Model
 {
     use HasFactory;
     protected $table = 'teachers';
-
+    protected $filtable = [
+        'name',
+        'address',
+        'phone',
+        'image',
+        'description',
+        'email',
+    ];
 
 }

@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TeachersRequest;
+use App\Http\Requests\UsersRequest;
+use App\Models\teachers;
 use App\Models\Users;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
 class UsersController extends Controller
@@ -91,11 +95,29 @@ class UsersController extends Controller
             'data' => $data,
         ]);
     }
-    public function login(Request $request)
+    public function login(UsersRequest $request)
     {
         if ($request->post()) {
+            $user = DB::table('users')->where('email', '=', $request->email)->where('password', '=', $request->password)->get();
+            if ($user) {
+                $request->session()->regenerate();
+                session()->put('user', $user);
+                return redirect()->route('trangchu');
+            }
         }
         return view('include.trangchu.login');
+    }
+    public function infomation(TeachersRequest $request,$id)
+    {
+        if ($request->post()) {
+            $student  = DB::table('users')->where('id',$id)->update($request->except("_token"));
+            if($student){
+                Session::flash('success','Sửa Thành Công');
+                return redirect()->route('trangchu');
+            }
+        }
+        $data = Users::find($id);
+        return view('include.trangchu.infomations',compact('data'));
     }
     public function delete(Request $request){
         $ids = $request->input('ids');

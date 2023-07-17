@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('promotions', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->date('start_date');
-            $table->date('end_date');
-            $table->integer('discount');
+            $table->string('name')->nullable();
+            $table->date('start_date')->nullable();
+            $table->date('end_date')->nullable();
+            $table->integer('discount')->nullable();
             $table->boolean('status')->default(1);
             $table->timestamps();
         });

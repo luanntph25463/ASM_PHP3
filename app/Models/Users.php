@@ -9,5 +9,13 @@ class Users extends Model
 {
     use HasFactory;
     protected $table = 'Users';
+    protected $filtable = [
+        'name',
+        'address',
+        'phone',
+        'image',
+        'password',
+        'email',
+    ];
 
 }

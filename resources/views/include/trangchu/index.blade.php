@@ -409,7 +409,7 @@
 			<div class="row">
 				<div class="col">
 					<div class="section_title_container text-center">
-						<h2 class="section_title">The Best Tutors in Town</h2>
+						<h2 class="section_title">The Best Teachers</h2>
 						<div class="section_subtitle"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel gravida arcu. Vestibulum feugiat, sapien ultrices fermentum congue, quam velit venenatis sem</p></div>
 					</div>
 				</div>
@@ -420,6 +420,7 @@
                 @foreach ($teachers as $item)
                 <div class="col-lg-3 col-md-6 team_col">
 					<div class="team_item">
+                        <a href="{{ route('infomation', ['id'=>$item->id]) }}">
 						<div class="team_image"><img src="{{$item->image}}" alt=""></div>
 						<div class="team_body">
 							<div class="team_title"><a href="#">{{$item->name}}</a></div>
@@ -432,6 +433,7 @@
 								</ul>
 							</div>
 						</div>
+                    </a>
 					</div>
 				</div>
                 @endforeach

@@ -28,7 +28,9 @@ Route::match(['get', 'post'],'listcourses', [CoursesController::class,'listCours
 Route::match(['get', 'post'],'login', [UsersController::class,'login'])->name('user.login');
 
 Route::get('/lienhe', [CoursesController::class, 'lienhe'])->name('lienhe');
-
+Route::post('/addcomment', [ReviewsController::class, 'addcomment'])->name('addComment');
+Route::match(['get', 'post'],'infomation/{id}', [teachersController::class,'infomation'])->name('infomation');
+Route::match(['get', 'post'],'infomations/{id}', [UsersController::class,'infomation'])->name('infomation');
 Route::get('/', [CoursesController::class, 'trangchu'])->name('trangchu');
 Route::get('/{id}', [CoursesController::class, 'trangchuFull'])->name('trangchufull');
 Route::get('/detail/{id}', [CoursesController::class, 'detailcoursres'])->name('detail.courses');

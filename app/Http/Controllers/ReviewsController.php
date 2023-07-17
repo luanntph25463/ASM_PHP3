@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ReviewsRequest;
 use App\Models\reviews;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class ReviewsController extends Controller
 {
@@ -14,6 +16,15 @@ class ReviewsController extends Controller
         $courses = DB::table('courses')->get();
         $user = DB::table('users')->get();
         return view('admin.reviews.list',compact('reviews','courses','user'));
+    }
+    public function addcomment(Request $request){
+        $user = new reviews;
+        $user->content = $request->input('content');
+        $user->course_id = $request->input('id_course');
+        $user->id_user = $request->input('id_user');
+        $user->rating = 5;
+        $user->save();
+        return back();
     }
     public function add(Request $request)
     {

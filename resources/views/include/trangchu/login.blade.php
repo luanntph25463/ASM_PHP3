@@ -5,18 +5,39 @@
     <div class="contents order-2 order-md-1">
 
       <div class="container">
+
         <div class="row align-items-center justify-content-center">
           <div class="col-md-7">
             <h3>Login to <strong>UNICAT</strong></h3>
             <p class="mb-4">chúc quý khách có trải nghiệm tốt nhất</p>
-            <form action="{{ route('user.login') }}" method="post">
+            @if ($errors->any())
+
+<div class="alert alert-danger alert-dismissible" role="alert">
+
+<ul>
+
+@foreach ($errors->all() as $error)
+
+<li>{{ $error }}</li>
+
+@endforeach
+
+</ul>
+
+<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+
+</div>
+
+@endif
+            <form action="{{ route('user.login') }}" method="POST">
+                @csrf
               <div class="form-group first">
                 <label for="username">Username</label>
-                <input type="text" class="form-control" name="email" placeholder="your-email@gmail.com" id="username">
+                <input type="text" class="form-control" value="{{ old('email') }}" name="email" placeholder="your-email@gmail.com" id="email">
               </div>
               <div class="form-group last mb-3">
                 <label for="password">Password</label>
-                <input type="password" name="password" class="form-control" placeholder="Your Password" id="password">
+                <input type="password" name="password" class="form-control"value="{{ old('password') }}" placeholder="Your Password" id="password">
               </div>
 
               <div class="d-flex mb-5 align-items-center">
@@ -27,8 +48,8 @@
                 <span class="ml-auto"><a href="#" class="forgot-pass">Forgot Password</a></span>
               </div>
 
-              <input type="submit" value="Log In" class="btn btn-block btn-primary">
-
+              <button type="submit" value="Log In" class="btn btn-block btn-primary">Login
+              </button>
             </form>
           </div>
         </div>
