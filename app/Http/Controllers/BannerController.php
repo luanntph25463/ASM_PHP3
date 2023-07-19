@@ -26,5 +26,5 @@ class BannerController extends Controller
         $search = $request->input('search');
         $banners = DB::table('banners')->where('link', 'LIKE', '%'.$search.'%')->orderBy('id','desc')->cursorPaginate(5);
         return view('admin.banner.list',compact('banners'));
-    }
+    } 
 }
