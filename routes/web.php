@@ -33,12 +33,13 @@ Route::post('/addcomment', [ReviewsController::class, 'addcomment'])->name('addC
 Route::match(['get', 'post'],'infomation/{id}', [teachersController::class,'infomation'])->name('infomation');
 Route::match(['get', 'post'],'infomations/{id}', [UsersController::class,'infomation'])->name('infomation');
 Route::get('/', [CoursesController::class, 'trangchu'])->name('trangchu');
+Route::get('/logout', [UsersController::class, 'logout'])->name('logout');
 Route::get('/{id}', [CoursesController::class, 'trangchuFull'])->name('trangchufull');
 Route::get('/detail/{id}', [CoursesController::class, 'detailcoursres'])->name('detail.courses');
 
 
-Route::prefix('/admin/')->group(function () {
-    Route::get('/admin', [UsersController::class, 'Dashboard'])->name('Dashboard');
+Route::prefix('/admin')->group(function () {
+    Route::get('/dashboard', [UsersController::class, 'Dashboard'])->name('Dashboard');
     Route::prefix('/category/')->group(function () {
         Route::get('/list', [CategoryController::class, 'index'])->name('category.list');
         Route::match(['get', 'post'], '/add',  [CategoryController::class, 'add'])->name('category.add');

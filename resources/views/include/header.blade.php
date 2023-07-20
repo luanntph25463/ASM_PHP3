@@ -54,6 +54,29 @@
 		<div class="header_container">
 			<div class="container">
 				<div class="row">
+                   @if (Session::has('user'))
+                   <div class="profile">
+                    <div class="profile-header">
+
+                        <div class="profile-header-cover"></div>
+
+
+                        <div class="profile-header-content">
+
+                            <div class="profile-header-img">
+                                <img width="100px" src="{{session('user')->image}}" alt>
+                            </div>
+                            <div class="profile-header-info">
+                                <h4 class="m-t-10 m-b-5">{{session('user')->name}}</h4>
+                                <a href="{{ route('infomation', ['id'=>session('user')->id]) }}" class="btn btn-sm btn-info mb-2">Edit Profile</a>
+                                <a href="{{ route('logout') }}"><i class="fa-sharp fa-solid fa-right-from-bracket"></i>OUT</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                   @else
+
+                   @endif
 					<div class="col">
 						<div class="header_content d-flex flex-row align-items-center justify-content-start">
 							<div class="logo_container">
@@ -86,6 +109,7 @@
 		<!-- Header Search Panel -->
 		<div class="header_search_container">
 			<div class="container">
+
 				<div class="row">
 					<div class="col">
 						<div class="header_search_content d-flex flex-row align-items-center justify-content-end">
@@ -112,4 +136,5 @@
 			</form>
 		</div>
 	</div>
+
 

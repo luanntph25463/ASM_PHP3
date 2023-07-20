@@ -25,8 +25,9 @@ class UsersController extends Controller
             $validator = Validator::make($request->all(), [
                 'name' => 'required',
                 'email' => 'required| email',
+                'image' => 'required |mimes:jpeg,png,jpg,gif,svg,PNG',
                 'password' => 'required',
-                'phone' => 'required',
+                'phone' => 'required | regex:/^([0-9\s\-\+\(\)]*)$/|min:10',
                 'address' => 'required',
             ]);
             if ($validator->fails()) {
@@ -60,7 +61,8 @@ class UsersController extends Controller
                 'name' => 'required',
                 'email' => 'required| email',
                 'password' => 'required',
-                'phone' => 'required',
+                'image' => 'mimes:jpeg,png,jpg,gif,svg,PNG',
+                'phone' => 'required |regex:/^([0-9\s\-\+\(\)]*)$/|min:10',
                 'address' => 'required',
             ]);
             if ($validator->fails()) {
@@ -98,14 +100,21 @@ class UsersController extends Controller
     public function login(UsersRequest $request)
     {
         if ($request->post()) {
-            $user = DB::table('users')->where('email', '=', $request->email)->where('password', '=', $request->password)->get();
-            if ($user) {
+            $user = DB::table('users')->where('email', '=', $request->email)->where('password', '=', $request->password)->first();
+            if ($user !== null) {
                 $request->session()->regenerate();
                 session()->put('user', $user);
                 return redirect()->route('trangchu');
+            }else{
+                return redirect()->route('user.login')->with('success','Sai tài khoản hoặc mật khẩu');
             }
         }
         return view('include.trangchu.login');
+    }
+    public function logout()
+    {
+        Session::flush();
+         return redirect()->route('trangchu');
     }
     public function infomation(TeachersRequest $request,$id)
     {
