@@ -25,8 +25,9 @@
 
                     <div class="form-group">
                         <label style="font-weight: bold">Image</label>
+                        <input type="hidden" name="hidden_image" id="hidden_image">
                         <input type="file" name="image" id="image" placeholder="image" class="form-control">
-                        <span style="color: red; font-weight: bold" class=""></span>
+                        <span style="color: red; font-weight: bold" class="error_image"></span>
                     </div>
                     <div class="form-group">
                         <label style="font-weight: bold">Địa Chỉ </label>

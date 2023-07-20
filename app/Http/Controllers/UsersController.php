@@ -25,8 +25,9 @@ class UsersController extends Controller
             $validator = Validator::make($request->all(), [
                 'name' => 'required',
                 'email' => 'required| email',
+                'image' => 'required |mimes:jpeg,png,jpg,gif,svg,PNG',
                 'password' => 'required',
-                'phone' => 'required',
+                'phone' => 'required | regex:/^([0-9\s\-\+\(\)]*)$/|min:10',
                 'address' => 'required',
             ]);
             if ($validator->fails()) {
@@ -60,7 +61,8 @@ class UsersController extends Controller
                 'name' => 'required',
                 'email' => 'required| email',
                 'password' => 'required',
-                'phone' => 'required',
+                'image' => 'mimes:jpeg,png,jpg,gif,svg,PNG',
+                'phone' => 'required |regex:/^([0-9\s\-\+\(\)]*)$/|min:10',
                 'address' => 'required',
             ]);
             if ($validator->fails()) {

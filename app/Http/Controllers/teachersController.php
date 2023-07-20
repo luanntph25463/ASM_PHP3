@@ -22,7 +22,9 @@ class teachersController extends Controller
             $validator = Validator::make($request->all(), [
                 'name' => 'required',
                 'email' => 'required| email',
-                'phone' => 'required',
+                'image' => 'required |mimes:jpeg,png,jpg,gif,svg,PNG',
+
+                'phone' => 'required | regex:/^([0-9\s\-\+\(\)]*)$/|min:10',
                 'address' => 'required',
                 'description' => 'required',
                 'specialized' => 'required',
@@ -68,7 +70,8 @@ class teachersController extends Controller
             $validator = Validator::make($request->all(), [
                 'name' => 'required',
                 'email' => 'required| email',
-                'phone' => 'required',
+                'phone' => 'required | regex:/^([0-9\s\-\+\(\)]*)$/|min:10',
+                'image' => 'mimes:jpeg,png,jpg,gif,svg,PNG',
                 'address' => 'required',
                 'description' => 'required',
                 'specialized' => 'required',
@@ -88,7 +91,7 @@ class teachersController extends Controller
             $user->specialized = $request->input('specialized');
             $image = $request->file('image');
             if($image == ''){
-                $user->image =$request->input('image_hidden');
+                $user->image =$request->input('hidden_image');
             }else{
                 $newName = time() . '.' . $image->getClientOriginalExtension();
                 $image->move(public_path('/img/'), $newName);

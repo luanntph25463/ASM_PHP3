@@ -103,6 +103,7 @@
                             $('.error_address').html(response.errors.address)
                             $('.error_phone').html(response.errors.phone)
                             $('.err_email').html(response.errors.email)
+                            $('.error_image').html(response.errors.image)
                             $('.error_specialized').html(response.errors.specialized)
                             $('.err_description').html(response.errors.description)
                         } else if (response.code == 1) {
@@ -131,6 +132,7 @@
                     $('#address').val(response.data.address)
                     $('#phone').val(response.data.phone)
                     $('#email').val(response.data.email)
+                    $('#hidden_image').val(response.data.image)
                     $('#description').val(response.data.description)
                     $('#specialized').val(response.data.specialized)
                 }
@@ -153,6 +155,7 @@
                             $('.error_address').html(response.errors.address)
                             $('.error_phone').html(response.errors.phone)
                             $('.err_email').html(response.errors.email)
+                            $('.error_image').html(response.errors.image)
                             $('.error_specialized').html(response.errors.specialized)
                             $('.err_description').html(response.errors.description)
                         } else if (response.code == 1) {
