@@ -18,6 +18,7 @@ class CoursesController extends Controller
     //
     public function index()
     {
+
         $courses = DB::table('courses')->orderBy('id', 'desc')->cursorPaginate(5);
         $category = DB::table('category_courses')->get();
         $promotions = DB::table('promotions')->get();
@@ -26,6 +27,7 @@ class CoursesController extends Controller
     }
     public function trangchu()
     {
+
         $courses = DB::table('courses')
             ->join('category_courses', 'courses.id_category', '=', 'category_courses.id')
             ->join('teachers', 'courses.id_teachers', '=', 'teachers.id')
@@ -382,7 +384,7 @@ class CoursesController extends Controller
             $user->status = $request->input('status');
             $image = $request->file('image');
             if($image == ''){
-                $user->image =$request->input('image_hidden');
+                $user->image =$request->input('hidden_image');
             }else{
                 $newName = time() . '.' . $image->getClientOriginalExtension();
                 $image->move(public_path('/img/'), $newName);

@@ -23,7 +23,6 @@ class teachersController extends Controller
                 'name' => 'required',
                 'email' => 'required| email',
                 'image' => 'required |mimes:jpeg,png,jpg,gif,svg,PNG',
-
                 'phone' => 'required | regex:/^([0-9\s\-\+\(\)]*)$/|min:10',
                 'address' => 'required',
                 'description' => 'required',

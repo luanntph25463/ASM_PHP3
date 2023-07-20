@@ -100,14 +100,21 @@ class UsersController extends Controller
     public function login(UsersRequest $request)
     {
         if ($request->post()) {
-            $user = DB::table('users')->where('email', '=', $request->email)->where('password', '=', $request->password)->get();
-            if ($user) {
+            $user = DB::table('users')->where('email', '=', $request->email)->where('password', '=', $request->password)->first();
+            if ($user !== null) {
                 $request->session()->regenerate();
                 session()->put('user', $user);
                 return redirect()->route('trangchu');
+            }else{
+                return redirect()->route('user.login')->with('success','Sai tài khoản hoặc mật khẩu');
             }
         }
         return view('include.trangchu.login');
+    }
+    public function logout()
+    {
+        Session::flush();
+         return redirect()->route('trangchu');
     }
     public function infomation(TeachersRequest $request,$id)
     {
