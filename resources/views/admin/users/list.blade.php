@@ -127,6 +127,7 @@
                             $('.error_name').html(response.errors.name)
                             $('.error_address').html(response.errors.address)
                             $('.error_phone').html(response.errors.phone)
+                            $('.error_image').html(response.errors.image)
                             $('.err_email').html(response.errors.email)
                             $('.err_password').html(response.errors.password)
                         } else if (response.code == 1) {
@@ -156,6 +157,7 @@
                     $('#phone').val(response.data.phone)
                     $('#role').val(response.data.role)
                     $('#status').val(response.data.status)
+                    $('#hidden_image').val(response.data.image)
                     $('#password').val(response.data.email)
                     $('#email').val(response.data.email)
                 }
@@ -178,6 +180,8 @@
                             $('.error_name').html(response.errors.name)
                             $('.error_address').html(response.errors.address)
                             $('.error_phone').html(response.errors.phone)
+                            $('.error_image').html(response.errors.image)
+
                             $('.err_email').html(response.errors.email)
                             $('.err_password').html(response.errors.password)
                         } else if (response.code == 1) {

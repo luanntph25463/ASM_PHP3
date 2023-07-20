@@ -118,6 +118,8 @@
                                 $('.error_name').html(response.errors.name)
                                 $('.error_desc').html(response.errors.description)
                                 $('.error_price').html(response.errors.price)
+                                $('.error_image').html(response.errors.image)
+
                             } else if (response.code == 1) {
                             console.log(response);
                                 $('.modal').hide()
@@ -144,6 +146,8 @@
                         $('#description').val(response.data.description)
                         $('#id_promotions').val(response.data.id_promotions)
                         $('#price').val(response.data.price)
+                        $('#hidden_image').val(response.data.image)
+
                         $('#id_category').val(response.data.id_category)
                         $('#id_class').val(response.data.id_class)
                         $('#status').val(response.data.status)

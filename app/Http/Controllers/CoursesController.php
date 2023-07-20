@@ -28,7 +28,6 @@ class CoursesController extends Controller
     {
         $courses = DB::table('courses')
             ->join('category_courses', 'courses.id_category', '=', 'category_courses.id')
-
             ->join('teachers', 'courses.id_teachers', '=', 'teachers.id')
             ->join('classes', 'courses.id_class', '=', 'classes.id')
             ->leftJoin('reviews', 'courses.id', '=', 'reviews.course_id')
@@ -262,6 +261,7 @@ class CoursesController extends Controller
                 'name' => 'required',
                 'description' => 'required',
                 'price' => 'required|min:0.01| numeric',
+                'image' => 'required |mimes:jpeg,png,jpg,gif,svg,PNG',
             ]);
             if ($validator->fails()) {
                 return response()->json([
@@ -364,6 +364,7 @@ class CoursesController extends Controller
                 'name' => 'required',
                 'description' => 'required',
                 'price' => 'required|min:0.01| numeric',
+                'image' => 'mimes:jpeg,png,jpg,gif,svg,PNG',
             ]);
             if ($validator->fails()) {
                 return response()->json([
