@@ -43,15 +43,7 @@
                         </select>
                         <span style="color: red; font-weight: bold" class="error_email"></span>
                     </div>
-                    <div class="form-group">
-                        <label style="font-weight: bold">Người Dùng</label>
-                        <select class="form-select" name="id_user" id="">
-                            @foreach ($users as $item)
-                            <option value="{{$item->id}}">{{$item->name}}</option>
-                            @endforeach
-                        </select>
-                        <span style="color: red; font-weight: bold" class="error_email"></span>
-                    </div>
+
                 </div>
 
                 <!-- Modal footer -->

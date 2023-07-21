@@ -42,7 +42,7 @@ class OrderController extends Controller
             $user->order_date = $request->input('order_date');
             $user->quantity = $request->input('quantity');
             $user->total_amount = $request->input('total_amount');
-            $user->id_user = $request->input('id_user');
+            // $user->id_user = $request->input('id_user');
             $user->id_course = $request->input('id_courses');
             $user->status = $request->input('status');
             $user->save();
@@ -69,7 +69,7 @@ class OrderController extends Controller
             $user->order_date = $request->input('order_date');
             $user->quantity = $request->input('quantity');
             $user->total_amount = $request->input('total_amount');
-            $user->id_user = $request->input('id_user');
+            // $user->id_user = $request->input('id_user');
             $user->id_course = $request->input('id_courses');
             $user->status = $request->input('status');
             $user->save();
