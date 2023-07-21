@@ -39,8 +39,7 @@
     <thead>
         <th></th>
         <th>ID</th>
-        <th>Name</th>
-        <th>mã Người Dùng</th>
+
         <th>Mã Khóa Học</th>
         <th>Số Lượng</th>
         <th>Tổng Số Tiền</th>
@@ -58,8 +57,7 @@
                     <input type="checkbox" name="ids[]" value="{{ $item->id }}">
                 </td>
                 <td>{{ $item->id }}</td>
-                <td>{{ $item->name	 }}</td>
-                <td>{{ $item->id_user }}</td>
+
                 <td>{{ $item->id_course }}</td>
                 <td>{{ $item->quantity }}</td>
                 <td>{{ $item->total_amount }}</td>
@@ -139,12 +137,10 @@
                 url: '/admin/order/update/' + id,
                 type: "GET",
                 success: function(response) {
-
                     $('#id_courses').val(response.data.course)
                     $('#quantity').val(response.data.quantity)
                     $('#order_date').val(response.data.order_date)
                     $('#status').val(response.data.status)
-                    $('#id_user').val(response.data.id_user)
                     $('#total_amount').val(response.data.total_amount)
                 }
             })

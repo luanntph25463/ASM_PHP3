@@ -50,7 +50,7 @@
                     <input type="checkbox" name="ids[]" value="{{ $item->id }}">
                 </td>
                 <td>{{ $item->id }}</td>
-                <td>{{ $item->image }}</td>
+                <td><img src="{{$item->image}}" width="100" alt=""></td>
                 <td>{{ $item->link }}</td>
                 <td>
                     <button type="button" data="{{ $item->id }}" id="edit" class="btn btn-warning"
