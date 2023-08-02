@@ -81,6 +81,7 @@ class teachersController extends Controller
                     'errors' => $validator->errors()->toArray()
                 ]);
             }
+            
             $user = teachers::find($id);
             $user->name = $request->input('name');
             $user->email = $request->input('email');

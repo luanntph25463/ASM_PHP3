@@ -107,7 +107,7 @@ class CoursesController extends Controller
         $teachers = DB::table('teachers')->where('id', '=', $courses->id_teachers)->first();
         $promotions = DB::table('promotions')->limit(3)->get();
         $count = DB::table('reviews')->where('course_id', '=', $courses->id)->count();
-        $reviews = DB::table('reviews')->join('users', 'reviews.id_user', 'users.id')->select('reviews.*', 'users.image', 'users.name')->where('course_id', '=', $id)->get();
+        $reviews = DB::table('reviews')->join('user', 'reviews.id_user', 'user.id')->select('reviews.*', 'user.image', 'user.name')->where('course_id', '=', $id)->get();
         // dd($reviews);
         $category = DB::table('category_courses')->limit(4)->get();
         return view('include.trangchu.detail', compact('courses','promotions', 'reviews', 'age', 'count', 'teachers'));
@@ -289,47 +289,16 @@ class CoursesController extends Controller
             ]);
         }
     }
-    public function cart(Request $request,$id)
+    public function cart(Request $request)
     {
-        if ($request->post()) {
-            $validator = Validator::make($request->all(), [
-                'name' => 'required',
-                'description' => 'required',
-                'price' => 'required|min:0.01| numeric',
-            ]);
-            if ($validator->fails()) {
-                return response()->json([
-                    'code' => 0,
-                    'errors' => $validator->errors()->toArray()
-                ]);
-            }
-            $user = new courses();
-            $user->name = $request->input('name');
-            $user->description = $request->input('description');
-            $user->price = $request->input('price');
-            $user->id_category = $request->input('id_category');
-            $user->id_promotions = $request->input('id_promotions');
-            $user->status = $request->input('status');
-            $user->id_class = $request->input('id_class');
-            $image = $request->file('image');
-            $newName = time() . '.' . $image->getClientOriginalExtension();
-            $image->move(public_path('/img/'), $newName);
-            $user->image = $newName;
-            $user->save();
-            return response()->json([
-                'code' => 1,
-            ]);
-        }
-        $courses = DB::table('courses')
+        $course = DB::table('courses')
         ->join('category_courses', 'courses.id_category', '=', 'category_courses.id')
 
         ->join('teachers', 'courses.id_teachers', '=', 'teachers.id')
         ->join('classes', 'courses.id_class', '=', 'classes.id')
-        ->join('carts', 'carts.id_course', '=', 'courses.id')
-        ->join('users', 'carts.id_user', '=', 'users.id')
         ->leftJoin('reviews', 'courses.id', '=', 'reviews.course_id')
         ->select('courses.*', 'category_courses.name as tenDM', 'classes.start_date', 'classes.end_date', 'classes.name as tenLop', 'teachers.name as tenGiaoVien', 'classes.ca_hoc', 'classes.quantity_member as SiSo', DB::raw('AVG(reviews.rating) as DanhGia'))
-        ->where('users.id', '=', $id)
+        ->where('courses.id', '=', $request->input('cart'))
         ->groupBy(
             'courses.id',
             'classes.id',
@@ -355,9 +324,44 @@ class CoursesController extends Controller
         )
         ->distinct()
         ->first();
-        dd($courses);
-        return view('include.trangchu.Cart',compact('courses'));
+        $cartItem = [
+            'id' => $course->id,
+            'name' => $course->name,
+            'image' => $course->image,
+            'price' => $course->price,
+            'SiSo' => $course->SiSo,
+            'ca_hoc' => $course->ca_hoc,
+            'tenGiaoVien' => $course->tenGiaoVien,
+            'tenLop' => $course->tenLop,
+            'start_date' => $course->start_date,
+            'end_date' => $course->end_date,
+            'tenDM' => $course->tenDM,
+        ];
 
+        if (session()->has('cart')) {
+            $cart = session()->get('cart');
+
+            $existingItemIndex = collect($cart)->search(function ($item) use ($course) {
+                return $item['id'] == $course->id;
+            });
+            if ($existingItemIndex !== false) {
+                // $cart[$existingItemIndex]['quantity'] += 1;
+            } else {
+                $cart[] = $cartItem;
+            }
+        } else {
+            $cart[] = $cartItem;
+        }
+
+         session()->put('cart', $cart);
+        return view('include.trangchu.cart', compact( 'cart'));
+
+
+    }
+    public function cartlist()
+    {
+        $cart = session('cart');
+    return view('include.trangchu.cart',compact('cart'));
     }
     public function update(Request $request, $id)
     {

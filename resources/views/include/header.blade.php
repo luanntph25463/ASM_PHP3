@@ -41,7 +41,7 @@
 									</li>
 								</ul>
 								<div class="top_bar_login ml-auto">
-									<div class="login_button"><a href="{{ route('user.login') }}">Register or Login</a></div>
+									<div class="login_button"><a href="{{ route('login') }}">Register or Login</a></div>
 								</div>
 							</div>
 						</div>

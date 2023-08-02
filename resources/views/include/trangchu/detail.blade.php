@@ -2,8 +2,8 @@
     @section('content')
 
     <!-- Home -->
-
     <div class="home">
+
         <div class="breadcrumbs_container">
             <div class="container">
                 <div class="row">
@@ -291,7 +291,7 @@
                                         @endforeach
 
                                         @if(session()->has('user'))
-                                        <form action="{{ route('addComment') }}" method="POST">
+                                    <form action="{{ route('addComment') }}" method="POST">
                                             <input type="hidden" name="id_course" value="{{$courses->id}}">
                                             <input type="hidden" name="id_user" value="{{session('user')->id}}">
                                             @csrf
@@ -368,7 +368,12 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="btn-primary py-2 px-5 rounded m-5">Đăng Ký Khóa Học</div>
+                        <form  action="{{ route('user.cart') }}" method="POST">
+                            @csrf
+                            <input type="text" name="cart" value="{{$courses->id}}">
+                            <input type="text" name="price" value="{{$courses->price}}">
+                        <button type="submit" class="btn-primary py-2 px-5 rounded m-5">Đăng Ký Khóa Học</button>
+                        <form>
                         <!-- Feature -->
                         <div class="sidebar_section">
                             <div class="sidebar_section_title">Teacher</div>
@@ -444,10 +449,10 @@
 
                         <!-- Newsletter Form -->
                         <div class="newsletter_form_container ml-lg-auto">
-                            <form action="#" id="newsletter_form" class="newsletter_form d-flex flex-row align-items-center justify-content-center">
+                            {{-- <form action="#" id="newsletter_form" class="newsletter_form d-flex flex-row align-items-center justify-content-center">
                                 <input type="email" class="newsletter_input" placeholder="Your Email" required="required">
                                 <button type="submit" class="newsletter_button">subscribe</button>
-                            </form>
+                            </form> --}}
                         </div>
 
                     </div>

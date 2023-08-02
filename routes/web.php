@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ClassesController;
@@ -25,16 +26,17 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 */
 
 Route::match(['get', 'post'],'listcourses', [CoursesController::class,'listCourses'])->name('listcourses');
-Route::match(['get', 'post'],'login', [UsersController::class,'login'])->name('user.login');
-Route::match(['get', 'post'],'cart/{id}', [CoursesController::class,'cart'])->name('user.cart');
+Route::match(['get', 'post'],'login', [LoginController::class,'login'])->name('login');
+Route::post('/addcart', [CoursesController::class, 'cart'])->name('user.cart');
+Route::get('/cart', [CoursesController::class, 'cartlist'])->name('user.cartlist');
 
 Route::get('/lienhe', [CoursesController::class, 'lienhe'])->name('lienhe');
-Route::post('/addcomment', [ReviewsController::class, 'addcomment'])->name('addComment');
+Route::middleware(['auth'])->post('/addcomment', [ReviewsController::class, 'addcomment'])->name('addComment');
 Route::match(['get', 'post'],'infomation/{id}', [teachersController::class,'infomation'])->name('infomation');
 Route::match(['get', 'post'],'infomations/{id}', [UsersController::class,'infomation'])->name('infomation');
-Route::get('/', [CoursesController::class, 'trangchu'])->name('trangchu');
+Route::middleware(['auth'])->get('/', [CoursesController::class, 'trangchu'])->name('trangchu');
 Route::get('/logout', [UsersController::class, 'logout'])->name('logout');
-Route::get('/{id}', [CoursesController::class, 'trangchuFull'])->name('trangchufull');
+Route::get('/{id}', [CoursesController::class, 'trangchuFull'])->name('trangchufull')->middleware(['auth']);
 Route::get('/detail/{id}', [CoursesController::class, 'detailcoursres'])->name('detail.courses');
 
 

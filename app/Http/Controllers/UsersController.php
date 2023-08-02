@@ -16,7 +16,7 @@ class UsersController extends Controller
 {
     //
     public function index(){
-        $users = DB::table('users')->orderBy('id','desc')->cursorPaginate(5);
+        $users = DB::table('user')->orderBy('id','desc')->cursorPaginate(5);
         return view('admin.users.list',compact('users'));
     }
     public function add(Request $request)
@@ -36,7 +36,7 @@ class UsersController extends Controller
                     'errors' => $validator->errors()->toArray()
                 ]);
             }
-            $users = new Users();
+            $users = new User();
             $users->name = $request->input('name');
             $users->email = $request->input('email');
             $users->phone = $request->input('phone');
@@ -71,7 +71,7 @@ class UsersController extends Controller
                     'errors' => $validator->errors()->toArray()
                 ]);
             }
-            $user = Users::find($id);
+            $user = User::find($id);
             $user->name = $request->input('name');
             $user->email = $request->input('email');
             $user->password = $request->input('password');
@@ -92,7 +92,7 @@ class UsersController extends Controller
                 'code' => 1,
             ]);
         }
-        $data = Users::find($id);
+        $data = User::find($id);
         return response()->json([
             'data' => $data,
         ]);
@@ -100,7 +100,7 @@ class UsersController extends Controller
     public function login(UsersRequest $request)
     {
         if ($request->post()) {
-            $user = DB::table('users')->where('email', '=', $request->email)->where('password', '=', $request->password)->first();
+            $user = DB::table('user')->where('email', '=', $request->email)->where('password', '=', $request->password)->first();
             if ($user !== null) {
                 $request->session()->regenerate();
                 session()->put('user', $user);
@@ -119,13 +119,13 @@ class UsersController extends Controller
     public function infomation(TeachersRequest $request,$id)
     {
         if ($request->post()) {
-            $student  = DB::table('users')->where('id',$id)->update($request->except("_token"));
+            $student  = DB::table('user')->where('id',$id)->update($request->except("_token"));
             if($student){
                 Session::flash('success','Sửa Thành Công');
                 return redirect()->route('trangchu');
             }
         }
-        $data = Users::find($id);
+        $data = User::find($id);
         return view('include.trangchu.infomations',compact('data'));
     }
     public function delete(Request $request){

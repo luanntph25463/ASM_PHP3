@@ -5,31 +5,40 @@
     <div class="row">
         <div class="col-xl-9 col-md-8">
             <h2 class="h6 d-flex flex-wrap justify-content-between align-items-center px-4 py-3 bg-secondary">
-                <span>Products</span><a class="font-size-sm" href="{{ route('trangchu', ['id'=>1]) }}"><svg xmlns="http://www.w3.org/2000/svg"
+                <span>Courses</span><a class="font-size-sm" href="{{ route('trangchu', ['id'=>1]) }}"><svg xmlns="http://www.w3.org/2000/svg"
                         width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor"
                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                         class="feather feather-chevron-left" style="width: 1rem; height: 1rem;">
                         <polyline points="15 18 9 12 15 6"></polyline>
                     </svg>Continue shopping</a></h2>
-                @foreach ($courses as  $item)
+                    @if (!empty($cart))
+                @php $total = 0 @endphp
+                @foreach ($cart as  $item)
+                @php $total += $item['price'] @endphp
                 <div class="d-sm-flex justify-content-between my-4 pb-4 border-bottom">
                     <div class="media d-block d-sm-flex text-center text-sm-left">
                         <a class="cart-item-thumb mx-auto mr-sm-4" href="#"><img
-                                src="https://www.bootdey.com/image/240x240/FF0000/000000" alt="Product"></a>
+                                src="{{$item['image']}}" height="230" alt="Product"></a>
                         <div class="media-body pt-3">
-                            <h3 class="product-card-title font-weight-semibold border-0 pb-0"><a href="#">Calvin Klein
-                                    Jeans Keds</a></h3>
-                            <div class="font-size-sm"><span class="text-muted mr-2">Size:</span>8.5</div>
-                            <div class="font-size-sm"><span class="text-muted mr-2">Color:</span>Black</div>
-                            <div class="font-size-lg text-primary pt-2">$125.00</div>
+                            <h3 class="product-card-title font-weight-semibold border-0 pb-0"><a href="#">{{$item['name']}}</a></h3>
+                            <div class="font-size-sm"><span class="text-muted mr-2">Giáo Viên:</span>{{$item['tenGiaoVien']}}</div>
+                            <div class="font-size-sm"><span class="text-muted mr-2">Lớp:</span>{{$item['tenLop']}}</div>
+                            <div class="font-size-sm"><span class="text-muted mr-2">Thời Gian Bắt Đầu:</span>{{$item['start_date']}}</div>
+                            <div class="font-size-sm"><span class="text-muted mr-2">Thời Gian Kết Thúc:</span>{{$item['end_date']}}</div>
+                            <div class="font-size-sm"><span class="text-muted mr-2">Sĩ Số:</span>{{$item['SiSo']}}</div>
+                            <div class="font-size-sm"><span class="text-muted mr-2">Ca học:</span>{{$item['ca_hoc']}}</div>
+                            <div class="font-size-sm"><span class="text-muted mr-2">Danh Mục:</span>{{$item['tenDM']}}</div>
+                            <div class="font-size-sm"><span class="text-muted mr-2">Danh Mục:</span>
+                            </div>
+                            <div class="font-size-lg text-primary pt-2">$ {{$item['price']}}</div>
                         </div>
                     </div>
                     <div class="pt-2 pt-sm-0 pl-sm-3 mx-auto mx-sm-0 text-center text-sm-left"
                         style="max-width: 10rem;">
-                        <div class="form-group mb-2">
+                        {{-- <div class="form-group mb-2">
                             <label for="quantity1">Quantity</label>
                             <input class="form-control form-control-sm" type="number" id="quantity1" value="1">
-                        </div>
+                        </div> --}}
                         <button class="btn btn-outline-secondary btn-sm btn-block mb-2" type="button">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -53,15 +62,21 @@
                 </div>
                 @endforeach
 
+                @else
+    <p>Your cart is empty.</p>
+@endif
+
         </div>
 
         <div class="col-xl-3 col-md-4 pt-3 pt-md-0">
             <h2 class="h6 px-4 py-3 bg-secondary text-center">Subtotal</h2>
-            <div class="h3 font-weight-semibold text-center py-3">$325.00</div>
+            <div class="h3 font-weight-semibold text-center py-3">$ @php
+                echo $total
+            @endphp</div>
             <hr>
             <h3 class="h6 pt-4 font-weight-semibold"><span class="badge badge-success mr-2">Note</span>Additional
                 comments</h3>
-            <textarea class="form-control mb-3" id="order-comments" rows="5"></textarea>
+            <textarea class="form-control mb-3" id="order-comments" name="comment" rows="5"></textarea>
             <a class="btn btn-primary btn-block" href="#">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
