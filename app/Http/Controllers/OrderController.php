@@ -16,8 +16,18 @@ class OrderController extends Controller
     public function index(){
         $order = DB::table('carts')->orderBy('id','desc')->cursorPaginate(5);
         $users = DB::table('users')->get();
-        $courses = DB::table('courses')->get();
-        return view('admin.order.list',compact('order','courses','users'));
+        $user = DB::table('users')->get();
+        return view('admin.order.list',compact('order','user','users'));
+    }
+    public function detail($id){
+        $order = DB::table('cart_details')
+        ->join('courses', 'cart_details.id_courses', '=', 'courses.id')
+        ->leftJoin('teachers', 'courses.id_teachers', '=', 'teachers.id')
+        ->leftJoin('classes', 'courses.id_class', '=', 'classes.id')
+        ->select('courses.*', 'classes.start_date', 'classes.end_date','carts.status as tt', 'classes.name as tenLop', 'teachers.name as tenGiaoVien', 'classes.ca_hoc', 'classes.quantity_member as SiSo')
+        ->where('cart_details.id_order', '=', $id)
+        ->get();
+        return view('admin.order.detail',compact('order'));
     }
     public function create(){
         $order = DB::table('carts')->get();
@@ -30,7 +40,7 @@ class OrderController extends Controller
             $validator = Validator::make($request->all(), [
                 'order_date' => 'required',
                 'total_amount' => 'required|min:0.01| numeric',
-                'quantity' => 'required|min:0.01| numeric',
+
             ]);
             if ($validator->fails()) {
                 return response()->json([
@@ -40,10 +50,8 @@ class OrderController extends Controller
             }
             $user = new carts;
             $user->order_date = $request->input('order_date');
-            $user->quantity = $request->input('quantity');
             $user->total_amount = $request->input('total_amount');
             $user->id_user = $request->input('id_user');
-            $user->id_course = $request->input('id_courses');
             $user->status = $request->input('status');
             $user->save();
             return response()->json([
@@ -57,7 +65,6 @@ class OrderController extends Controller
             $validator = Validator::make($request->all(), [
                 'order_date' => 'required',
                 'total_amount' => 'required|min:0.01| numeric',
-                'quantity' => 'required|min:0.01| numeric',
             ]);
             if ($validator->fails()) {
                 return response()->json([
@@ -67,10 +74,9 @@ class OrderController extends Controller
             }
             $user = carts::find($id);
             $user->order_date = $request->input('order_date');
-            $user->quantity = $request->input('quantity');
             $user->total_amount = $request->input('total_amount');
             $user->id_user = $request->input('id_user');
-            $user->id_course = $request->input('id_courses');
+            // $user->id_course = $request->input('id_courses');
             $user->status = $request->input('status');
             $user->save();
             return response()->json([

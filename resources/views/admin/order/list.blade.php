@@ -39,10 +39,8 @@
     <thead>
         <th></th>
         <th>ID</th>
-        <th>Name</th>
-        <th>mã Người Dùng</th>
-        <th>Mã Khóa Học</th>
-        <th>Số Lượng</th>
+
+        <th>Mã Người Dùng</th>
         <th>Tổng Số Tiền</th>
         <th>Ngày Đặt</th>
         <th>Trạng Thái</th>
@@ -58,10 +56,8 @@
                     <input type="checkbox" name="ids[]" value="{{ $item->id }}">
                 </td>
                 <td>{{ $item->id }}</td>
-                <td>{{ $item->name	 }}</td>
+
                 <td>{{ $item->id_user }}</td>
-                <td>{{ $item->id_course }}</td>
-                <td>{{ $item->quantity }}</td>
                 <td>{{ $item->total_amount }}</td>
                 <td>{{ $item->order_date }}</td>
                 <td>
@@ -69,8 +65,10 @@
                      Mở
                      @elseif($item->status == 2)
                     Khóa
+                    @elseif($item->status == 3)
+                    Chờ Xác Nhận
                      @endif
-                     </td>
+                  </td>
                 <td>
                     <button type="button" data="{{ $item->id }}" id="edit" class="btn btn-warning"
                         data-toggle="modal" data-target="#myModal">
@@ -80,6 +78,9 @@
                 <td>
                     <a href="in/{{$item->id}}/pdf">
                         In Hóa Đơn
+                    </a>
+                    <a href="/admin/order/detail/{{$item->id}}">
+                        Xem Chi Tiết
                     </a>
                 </td>
             </tr>
@@ -116,7 +117,6 @@
                         console.log(response);
                         if (response.code == 0) {
                             $('.error_orderdate').html(response.errors.order_date)
-                            $('.error_quantity').html(response.errors.quantity)
                             $('.error_total_amount').html(response.errors.total_amount)
                         } else if (response.code == 1) {
                         console.log(response);
@@ -139,12 +139,9 @@
                 url: '/admin/order/update/' + id,
                 type: "GET",
                 success: function(response) {
-
                     $('#id_courses').val(response.data.course)
-                    $('#quantity').val(response.data.quantity)
                     $('#order_date').val(response.data.order_date)
                     $('#status').val(response.data.status)
-                    $('#id_user').val(response.data.id_user)
                     $('#total_amount').val(response.data.total_amount)
                 }
             })
@@ -164,7 +161,7 @@
                         console.log(response);
                         if (response.code == 0) {
                             $('.error_orderdate').html(response.errors.order_date)
-                            $('.error_quantity').html(response.errors.quantity)
+
                             $('.error_total_amount').html(response.errors.total_amount)
                         } else if (response.code == 1) {
                             $('.modal').hide()

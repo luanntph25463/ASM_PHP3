@@ -41,7 +41,7 @@
 									</li>
 								</ul>
 								<div class="top_bar_login ml-auto">
-									<div class="login_button"><a href="{{ route('user.login') }}">Register or Login</a></div>
+									<div class="login_button"><a href="{{ route('login') }}">Register or Login</a></div>
 								</div>
 							</div>
 						</div>
@@ -54,6 +54,29 @@
 		<div class="header_container">
 			<div class="container">
 				<div class="row">
+                   @if (Session::has('user'))
+                   <div class="profile">
+                    <div class="profile-header">
+
+                        <div class="profile-header-cover"></div>
+
+
+                        <div class="profile-header-content">
+
+                            <div class="profile-header-img">
+                                <img width="100px" src="{{session('user')->image}}" alt>
+                            </div>
+                            <div class="profile-header-info">
+                                <h4 class="m-t-10 m-b-5">{{session('user')->name}}</h4>
+                                <a href="{{ route('infomationuser', ['id'=>session('user')->id]) }}" class="btn btn-sm btn-info mb-2">Edit Profile</a>
+                                <a href="{{ route('logout') }}"><i class="fa-sharp fa-solid fa-right-from-bracket"></i>OUT</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                   @else
+
+                   @endif
 					<div class="col">
 						<div class="header_content d-flex flex-row align-items-center justify-content-start">
 							<div class="logo_container">
@@ -66,6 +89,7 @@
 									<li class="active"><a href="#">Home</a></li>
 									<li><a href="{{ route('listcourses') }}">List Courses</a></li>
 									<li><a href="{{ route('lienhe') }}">Contact</a></li>
+									<li><a href="{{ route('user.cartlist') }}">Cart</a></li>
 								</ul>
 								<div class="search_button"><i class="fa fa-search" aria-hidden="true"></i></div>
 
@@ -86,6 +110,7 @@
 		<!-- Header Search Panel -->
 		<div class="header_search_container">
 			<div class="container">
+
 				<div class="row">
 					<div class="col">
 						<div class="header_search_content d-flex flex-row align-items-center justify-content-end">
@@ -112,4 +137,5 @@
 			</form>
 		</div>
 	</div>
+
 

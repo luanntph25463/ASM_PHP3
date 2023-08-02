@@ -420,7 +420,7 @@
                 @foreach ($teachers as $item)
                 <div class="col-lg-3 col-md-6 team_col">
 					<div class="team_item">
-                        <a href="{{ route('infomation', ['id'=>$item->id]) }}">
+                        <a href="{{ route('infomationteacher', ['id'=>$item->id]) }}">
 						<div class="team_image"><img src="{{$item->image}}" alt=""></div>
 						<div class="team_body">
 							<div class="team_title"><a href="#">{{$item->name}}</a></div>

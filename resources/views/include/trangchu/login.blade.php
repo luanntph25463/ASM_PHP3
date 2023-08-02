@@ -29,7 +29,7 @@
 </div>
 
 @endif
-            <form action="{{ route('user.login') }}" method="POST">
+            <form action="{{ route('login') }}" method="POST">
                 @csrf
               <div class="form-group first">
                 <label for="username">Username</label>

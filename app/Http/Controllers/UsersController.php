@@ -36,7 +36,7 @@ class UsersController extends Controller
                     'errors' => $validator->errors()->toArray()
                 ]);
             }
-            $users = new Users();
+            $users = new User();
             $users->name = $request->input('name');
             $users->email = $request->input('email');
             $users->phone = $request->input('phone');
@@ -71,7 +71,7 @@ class UsersController extends Controller
                     'errors' => $validator->errors()->toArray()
                 ]);
             }
-            $user = Users::find($id);
+            $user = User::find($id);
             $user->name = $request->input('name');
             $user->email = $request->input('email');
             $user->password = $request->input('password');
@@ -92,7 +92,7 @@ class UsersController extends Controller
                 'code' => 1,
             ]);
         }
-        $data = Users::find($id);
+        $data = User::find($id);
         return response()->json([
             'data' => $data,
         ]);
@@ -100,16 +100,25 @@ class UsersController extends Controller
     public function login(UsersRequest $request)
     {
         if ($request->post()) {
-            $user = DB::table('users')->where('email', '=', $request->email)->where('password', '=', $request->password)->get();
-            if ($user) {
+            $user = DB::table('users')->where('email', '=', $request->email)->where('password', '=', $request->password)->first();
+            if ($user !== null) {
                 $request->session()->regenerate();
                 session()->put('user', $user);
+                session()->put('role', $user->role);
                 return redirect()->route('trangchu');
+            }else{
+                return redirect()->route('login')->with('success','Sai tài khoản hoặc mật khẩu');
             }
         }
         return view('include.trangchu.login');
     }
-    public function infomation(TeachersRequest $request,$id)
+    public function logout()
+    {
+        session()->forget('user');
+        session()->forget('role');
+         return redirect()->route('trangchu');
+    }
+    public function infomationuser(TeachersRequest $request,$id)
     {
         if ($request->post()) {
             $student  = DB::table('users')->where('id',$id)->update($request->except("_token"));
@@ -118,8 +127,18 @@ class UsersController extends Controller
                 return redirect()->route('trangchu');
             }
         }
-        $data = Users::find($id);
-        return view('include.trangchu.infomations',compact('data'));
+        $order = DB::table('cart_details')
+        ->join('courses', 'cart_details.id_courses', '=', 'courses.id')
+        ->leftJoin('teachers', 'courses.id_teachers', '=', 'teachers.id')
+        ->leftJoin('classes', 'courses.id_class', '=', 'classes.id')
+
+        ->leftJoin('carts', 'carts.id', '=', 'cart_details.id_order')
+        ->leftJoin('users', 'users.id', '=', 'carts.id_user')
+        ->select('courses.*', 'classes.start_date','carts.status as tt', 'classes.end_date', 'classes.name as tenLop', 'teachers.name as tenGiaoVien', 'classes.ca_hoc', 'classes.quantity_member as SiSo')
+        ->where('users.id', '=', $id)
+        ->get();
+        $data = User::find($id);
+        return view('include.trangchu.infomations',compact('data','order'));
     }
     public function delete(Request $request){
         $ids = $request->input('ids');

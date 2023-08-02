@@ -12,11 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('carts', function (Blueprint $table) {
-            $table->id();
-        $table->string('name')->nullable();
+        $table->id();
         $table->integer('id_user')->nullable();
-        $table->integer('id_course')->nullable();
-        $table->integer('quantity')->nullable();
+        $table->string('comment')->nullable();
         $table->integer('total_amount')->nullable();
         $table->date('order_date')->nullable();
         $table->boolean('status')->default(1);

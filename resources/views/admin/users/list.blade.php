@@ -151,11 +151,11 @@
                 url: '/admin/users/update/' + id,
                 type: "GET",
                 success: function(response) {
-
                     $('#name').val(response.data.name)
                     $('#address').val(response.data.address)
                     $('#phone').val(response.data.phone)
                     $('#role').val(response.data.role)
+                    $('#mat_truoc_preview').val(response.data.image)
                     $('#status').val(response.data.status)
                     $('#hidden_image').val(response.data.image)
                     $('#password').val(response.data.email)

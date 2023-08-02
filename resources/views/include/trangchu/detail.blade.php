@@ -2,8 +2,8 @@
     @section('content')
 
     <!-- Home -->
-
     <div class="home">
+
         <div class="breadcrumbs_container">
             <div class="container">
                 <div class="row">
@@ -291,9 +291,9 @@
                                         @endforeach
 
                                         @if(session()->has('user'))
-                                        <form action="{{ route('addComment') }}" method="POST">
+                                    <form action="{{ route('addComment') }}" method="POST">
                                             <input type="hidden" name="id_course" value="{{$courses->id}}">
-                                            <input type="hidden" name="id_user" value="{{session('user')->first()->id}}">
+                                            <input type="hidden" name="id_user" value="{{session('user')->id}}">
                                             @csrf
                                         <div class="panel-body">
                                             <textarea class="form-control" rows="2" placeholder="What are you thinking?" name="content">
@@ -311,7 +311,7 @@
 
                                     <div class="add_comment_container">
                                         <div class="add_comment_title">Add a review</div>
-                                        <div class="add_comment_text">You must be <a href="#">logged</a> in to post a comment.</div>
+                                        <div class="add_comment_text">You must be <a href="{{ route('login') }}">logged</a> in to post a comment.</div>
                                     </div>
                                     @endif
                                     </div>
@@ -368,7 +368,15 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="btn-primary py-2 px-5 rounded m-5">Đăng Ký Khóa Học</div>
+                        <form  action="{{ route('user.cart') }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="cart" value="{{$courses->id}}">
+                            @if(session()->has('user'))
+                            <input type="hidden" name="id_user" value="{{session('user')->id}}">
+                            @endif
+                            <input type="hidden" name="price" value="{{$courses->price}}">
+                        <button type="submit" class="btn-primary py-2 px-5 rounded m-5">Đăng Ký Khóa Học</button>
+                        <form>
                         <!-- Feature -->
                         <div class="sidebar_section">
                             <div class="sidebar_section_title">Teacher</div>
@@ -444,10 +452,10 @@
 
                         <!-- Newsletter Form -->
                         <div class="newsletter_form_container ml-lg-auto">
-                            <form action="#" id="newsletter_form" class="newsletter_form d-flex flex-row align-items-center justify-content-center">
+                            {{-- <form action="#" id="newsletter_form" class="newsletter_form d-flex flex-row align-items-center justify-content-center">
                                 <input type="email" class="newsletter_input" placeholder="Your Email" required="required">
                                 <button type="submit" class="newsletter_button">subscribe</button>
-                            </form>
+                            </form> --}}
                         </div>
 
                     </div>
