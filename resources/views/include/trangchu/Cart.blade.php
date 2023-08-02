@@ -1,11 +1,11 @@
 @extends('include.layouts')
 @section('content')
 
-<div class="container pb-5 mt-n2 mt-md-n3">
+<div class="container pb-5 mt-n2 mt-md-n3 pt-4">
     <div class="row">
         <div class="col-xl-9 col-md-8">
             <h2 class="h6 d-flex flex-wrap justify-content-between align-items-center px-4 py-3 bg-secondary">
-                <span>Courses</span><a class="font-size-sm" href="{{ route('trangchu', ['id'=>1]) }}"><svg xmlns="http://www.w3.org/2000/svg"
+                <span>Courses</span><a class="font-size-sm" href="{{ route('trangchu') }}"><svg xmlns="http://www.w3.org/2000/svg"
                         width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor"
                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                         class="feather feather-chevron-left" style="width: 1rem; height: 1rem;">
@@ -47,7 +47,7 @@
                                 <polyline points="1 20 1 14 7 14"></polyline>
                                 <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
                             </svg>Update cart</button>
-                        <button class="btn btn-outline-danger btn-sm btn-block mb-2" type="button">
+                        <a href="/removecart/{{$item['id']}}" class="btn btn-outline-danger btn-sm btn-block mb-2" type="button">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                 stroke-linejoin="round" class="feather feather-trash-2 mr-1">
@@ -57,12 +57,15 @@
                                 </path>
                                 <line x1="10" y1="11" x2="10" y2="17"></line>
                                 <line x1="14" y1="11" x2="14" y2="17"></line>
-                            </svg>Remove</button>
+                            </svg>Remove</a>
                     </div>
                 </div>
                 @endforeach
 
                 @else
+                @php
+                    $total = 0
+                @endphp
     <p>Your cart is empty.</p>
 @endif
 
@@ -76,14 +79,23 @@
             <hr>
             <h3 class="h6 pt-4 font-weight-semibold"><span class="badge badge-success mr-2">Note</span>Additional
                 comments</h3>
+                <form action="{{ route('orderadd') }}" method="post">
+                    @csrf
+                    <input type="hidden" name="total_amount" value="@php echo $total @endphp">
+                    @if(session()->has('user'))
+                    <input type="hidden" name="id_user" value="@php echo session('user')->id @endphp">
+                    @endif
+
+                    <input type="hidden" name="status" value="3">
             <textarea class="form-control mb-3" id="order-comments" name="comment" rows="5"></textarea>
-            <a class="btn btn-primary btn-block" href="#">
+            <button type="submit" class="btn btn-primary btn-block" href="#">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                     class="feather feather-credit-card mr-2">
                     <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
                     <line x1="1" y1="10" x2="23" y2="10"></line>
-                </svg>Proceed to Checkout</a>
+                </svg>Proceed to Checkout</button>
+                </form>
             <div class="pt-4">
                 <div class="accordion" id="cart-accordion">
                     <div class="card">
@@ -124,6 +136,7 @@
                                             <polyline points="18 15 12 9 6 15"></polyline>
                                         </svg></span></a></h3>
                         </div>
+
                         <div class="collapse" id="shipping" data-parent="#cart-accordion">
                             <div class="card-body">
                                 <form class="needs-validation" novalidate>

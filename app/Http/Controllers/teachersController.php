@@ -51,7 +51,7 @@ class teachersController extends Controller
             ]);
         }
     }
-    public function infomation(TeachersRequest $request,$id)
+    public function infomationteacher(TeachersRequest $request,$id)
     {
         if ($request->post()) {
             $student  = DB::table('teachers')->where('id',$id)->update($request->except("_token"));
@@ -81,7 +81,7 @@ class teachersController extends Controller
                     'errors' => $validator->errors()->toArray()
                 ]);
             }
-            
+
             $user = teachers::find($id);
             $user->name = $request->input('name');
             $user->email = $request->input('email');

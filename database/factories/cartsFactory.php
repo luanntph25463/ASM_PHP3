@@ -19,7 +19,6 @@ class cartsFactory extends Factory
         return [
             //
             'id_user' => fake()->numberBetween(0,10),
-            'quantity' => fake()->numberBetween(0,10),
             'comment' => fake()->text(),
             'order_date' => fake()->date(),
             'total_amount' => fake()->numberBetween(0,10),

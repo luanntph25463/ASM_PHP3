@@ -18,7 +18,7 @@ class Cart_detailFactory extends Factory
     {
         return [
             //
-            'id_user' => fake()->numberBetween(0,10),
+            'id_order' => fake()->numberBetween(0,10),
             'id_courses' => fake()->numberBetween(0,10),
         ];
     }

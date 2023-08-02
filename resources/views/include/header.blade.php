@@ -68,7 +68,7 @@
                             </div>
                             <div class="profile-header-info">
                                 <h4 class="m-t-10 m-b-5">{{session('user')->name}}</h4>
-                                <a href="{{ route('infomation', ['id'=>session('user')->id]) }}" class="btn btn-sm btn-info mb-2">Edit Profile</a>
+                                <a href="{{ route('infomationuser', ['id'=>session('user')->id]) }}" class="btn btn-sm btn-info mb-2">Edit Profile</a>
                                 <a href="{{ route('logout') }}"><i class="fa-sharp fa-solid fa-right-from-bracket"></i>OUT</a>
                             </div>
                         </div>
@@ -89,6 +89,7 @@
 									<li class="active"><a href="#">Home</a></li>
 									<li><a href="{{ route('listcourses') }}">List Courses</a></li>
 									<li><a href="{{ route('lienhe') }}">Contact</a></li>
+									<li><a href="{{ route('user.cartlist') }}">Cart</a></li>
 								</ul>
 								<div class="search_button"><i class="fa fa-search" aria-hidden="true"></i></div>
 

@@ -84,7 +84,7 @@
                 <div class="col-lg-8">
                     <div class="card">
 
-                        <form action="{{ route('infomation', ['id'=>$data->id]) }}" method="post">
+                        <form action="{{ route('infomationuser', ['id'=>$data->id]) }}" method="post">
                             @csrf
                         <div class="card-body">
                             <div class="row mb-3">
@@ -194,7 +194,48 @@
                             </div>
                         </div>
                     </div>
-
+                    <table class="table table-dark m-2">
+                        <thead>
+                            <th>ID</th>
+                            <th>Tên Khóa Học</th>
+                            <th>Giá</th>
+                            <th>ngày bắt đầu</th>
+                            <th>ngày kết thúc</th>
+                            <th>Tên Giáo Viên</th>
+                            <th>Tên Lớp</th>
+                            <th>Sĩ Số</th>
+                            <th>Ca Học</th>
+                            <th>Trạng Thái</th>
+                        </thead>
+                        <tbody>
+                            <form action="{{ route('order.delete') }}">
+                                <button type="submit" class="btn btn-danger"><i class="fa-sharp fa-solid fa-trash"></i></button>
+                                @csrf
+                            @foreach ($order as $item)
+                                <tr>
+                                    <td>{{ $item->id }}</td>
+                                    <td>{{ $item->name }}</td>
+                                    <td>{{ $item->price }}</td>
+                                    <td>{{ $item->start_date }}</td>
+                                    <td>{{ $item->end_date }}</td>
+                                    <td>{{ $item->tenGiaoVien }}</td>
+                                    <td>{{ $item->tenLop }}</td>
+                                    <td>{{ $item->SiSo }}</td>
+                                    <td>{{ $item->ca_hoc }}</td>
+                                    <td>
+                                        @if($item->tt == 1)
+                                         Mở
+                                         @elseif($item->tt == 2)
+                                        Khóa
+                                        @elseif($item->tt == 3)
+                                        Chờ Xác Nhận
+                                         @endif
+                                      </td>
+                                </tr>
+                            @endforeach
+                        </form>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

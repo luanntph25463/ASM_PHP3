@@ -311,7 +311,7 @@
 
                                     <div class="add_comment_container">
                                         <div class="add_comment_title">Add a review</div>
-                                        <div class="add_comment_text">You must be <a href="{{ route('user.login') }}">logged</a> in to post a comment.</div>
+                                        <div class="add_comment_text">You must be <a href="{{ route('login') }}">logged</a> in to post a comment.</div>
                                     </div>
                                     @endif
                                     </div>
@@ -370,8 +370,11 @@
                         </div>
                         <form  action="{{ route('user.cart') }}" method="POST">
                             @csrf
-                            <input type="text" name="cart" value="{{$courses->id}}">
-                            <input type="text" name="price" value="{{$courses->price}}">
+                            <input type="hidden" name="cart" value="{{$courses->id}}">
+                            @if(session()->has('user'))
+                            <input type="hidden" name="id_user" value="{{session('user')->id}}">
+                            @endif
+                            <input type="hidden" name="price" value="{{$courses->price}}">
                         <button type="submit" class="btn-primary py-2 px-5 rounded m-5">Đăng Ký Khóa Học</button>
                         <form>
                         <!-- Feature -->

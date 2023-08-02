@@ -84,7 +84,7 @@
                 <div class="col-lg-8">
                     <div class="card">
 
-                        <form action="{{ route('infomation', ['id'=>$data->id]) }}" method="post">
+                        <form action="{{ route('infomationteacher', ['id'=>$data->id]) }}" method="post">
                             @csrf
                         <div class="card-body">
                             <div class="row mb-3">

@@ -13,7 +13,7 @@ class LoginController extends Controller
     public function login(Request $request) {
         if ($request->isMethod('POST')) {
             //đăng nhập thành công
-            if (Auth::check(['email'=>$request->email,'password'=>$request->password])){
+            if (Auth::attempt(['email'=>$request->email,'password'=>$request->password])){
                 return redirect()->route('trangchu');
             } else {
                 Session::flash('error','Sai mật khẩu hoặc email');

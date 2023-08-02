@@ -16,7 +16,7 @@ class UsersController extends Controller
 {
     //
     public function index(){
-        $users = DB::table('user')->orderBy('id','desc')->cursorPaginate(5);
+        $users = DB::table('users')->orderBy('id','desc')->cursorPaginate(5);
         return view('admin.users.list',compact('users'));
     }
     public function add(Request $request)
@@ -100,33 +100,45 @@ class UsersController extends Controller
     public function login(UsersRequest $request)
     {
         if ($request->post()) {
-            $user = DB::table('user')->where('email', '=', $request->email)->where('password', '=', $request->password)->first();
+            $user = DB::table('users')->where('email', '=', $request->email)->where('password', '=', $request->password)->first();
             if ($user !== null) {
                 $request->session()->regenerate();
                 session()->put('user', $user);
+                session()->put('role', $user->role);
                 return redirect()->route('trangchu');
             }else{
-                return redirect()->route('user.login')->with('success','Sai tài khoản hoặc mật khẩu');
+                return redirect()->route('login')->with('success','Sai tài khoản hoặc mật khẩu');
             }
         }
         return view('include.trangchu.login');
     }
     public function logout()
     {
-        Session::flush();
+        session()->forget('user');
+        session()->forget('role');
          return redirect()->route('trangchu');
     }
-    public function infomation(TeachersRequest $request,$id)
+    public function infomationuser(TeachersRequest $request,$id)
     {
         if ($request->post()) {
-            $student  = DB::table('user')->where('id',$id)->update($request->except("_token"));
+            $student  = DB::table('users')->where('id',$id)->update($request->except("_token"));
             if($student){
                 Session::flash('success','Sửa Thành Công');
                 return redirect()->route('trangchu');
             }
         }
+        $order = DB::table('cart_details')
+        ->join('courses', 'cart_details.id_courses', '=', 'courses.id')
+        ->leftJoin('teachers', 'courses.id_teachers', '=', 'teachers.id')
+        ->leftJoin('classes', 'courses.id_class', '=', 'classes.id')
+
+        ->leftJoin('carts', 'carts.id', '=', 'cart_details.id_order')
+        ->leftJoin('users', 'users.id', '=', 'carts.id_user')
+        ->select('courses.*', 'classes.start_date','carts.status as tt', 'classes.end_date', 'classes.name as tenLop', 'teachers.name as tenGiaoVien', 'classes.ca_hoc', 'classes.quantity_member as SiSo')
+        ->where('users.id', '=', $id)
+        ->get();
         $data = User::find($id);
-        return view('include.trangchu.infomations',compact('data'));
+        return view('include.trangchu.infomations',compact('data','order'));
     }
     public function delete(Request $request){
         $ids = $request->input('ids');
