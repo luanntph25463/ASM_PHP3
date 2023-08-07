@@ -5,12 +5,17 @@ namespace App\Http\Controllers;
 use App\Http\Requests\TeachersRequest;
 use App\Http\Requests\UsersRequest;
 use App\Models\teachers;
-use App\Models\Users;
-use Illuminate\Foundation\Auth\User;
+use App\Models\User;
+// use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
+use Laravel\Socialite\Contracts\Factory;
+use Laravel\Socialite\Facades\Socialite;
+use Illuminate\Support\Facades\Mail;
 
 class UsersController extends Controller
 {
@@ -41,7 +46,7 @@ class UsersController extends Controller
             $users->email = $request->input('email');
             $users->phone = $request->input('phone');
             $users->address = $request->input('address');
-            $users->password = $request->input('password');
+            $users->password = Hash::make($request->input('password'));
             $users->status = $request->input('status');
             $users->role = $request->input('role');
             $image = $request->file('image');
@@ -74,7 +79,7 @@ class UsersController extends Controller
             $user = User::find($id);
             $user->name = $request->input('name');
             $user->email = $request->input('email');
-            $user->password = $request->input('password');
+            $user->password = Hash::make($request->input('password'));
             $user->phone = $request->input('phone');
             $user->address = $request->input('address');
             $user->role = $request->input('role');
@@ -99,23 +104,143 @@ class UsersController extends Controller
     }
     public function login(UsersRequest $request)
     {
-        if ($request->post()) {
-            $user = DB::table('users')->where('email', '=', $request->email)->where('password', '=', $request->password)->first();
-            if ($user !== null) {
-                $request->session()->regenerate();
-                session()->put('user', $user);
-                session()->put('role', $user->role);
+        // if ($request->post()) {
+        //     $user = DB::table('users')->where('email', '=', $request->email)->where('password', '=', $request->password)->first();
+        //     if ($user !== null) {
+        //         $request->session()->regenerate();
+        //         session()->put('user', $user);
+        //         session()->put('role', $user->role);
+        //         return redirect()->route('trangchu');
+        //     }else{
+        //         return redirect()->route('login')->with('success','Sai tài khoản hoặc mật khẩu');
+        //     }
+        // }
+        if ($request->isMethod('POST')) {
+
+            // dd(Auth()->user());
+            //đăng nhập thành công
+            if (Auth::attempt(['email'=>$request->email,'password'=>$request->password])){
+                $user = Auth::user();
+
+                Auth::login($user);
                 return redirect()->route('trangchu');
-            }else{
-                return redirect()->route('login')->with('success','Sai tài khoản hoặc mật khẩu');
+            } else {
+                dd(Auth::attempt());
+                Session::flash('error','Sai mật khẩu hoặc email');
+                return redirect()->route('login');
             }
         }
         return view('include.trangchu.login');
     }
+    public function logingoogle(UsersRequest $request)
+    {
+        return Socialite::driver('google')->redirect();
+    }
+    public function logingooglecallback(UsersRequest $request)
+    {
+        $user = Socialite::driver('google')->user();
+        $users = User::where('google_id', $user->getId())->first();
+        if(!$users){
+            $useradd = User::create([
+                'name' => $user->getName(),
+                'image' => $user->getAvatar(),
+                'email' => $user->getEmail(),
+                'google_id' => $user->getId()
+            ]);
+
+            Auth::login($useradd);
+            return redirect()->route('trangchu');
+
+        }else{
+            Auth::login($users);
+
+            return redirect()->route('trangchu');
+
+        }
+    }
+
+      public function loginface(UsersRequest $request)
+    {
+
+        return Socialite::driver('facebook')->redirect();
+    }
+    public function loginfacecallback(UsersRequest $request)
+    {
+        $user = Socialite::driver('facebook')->user();
+        $users = User::where('facebook_id', $user->getId())->first();
+        if(!$users){
+            $useradd = User::create([
+                'facebook_id' => $user->getId(),
+                'name' => $user->getName(),
+                'image' => $user->getAvatar(),
+                'email' => $user->getEmail(),
+            ]);
+            Auth::login($useradd);
+
+            return redirect()->route('trangchu');
+
+        }else{
+            Auth::login($users);
+
+            return redirect()->route('trangchu');
+
+        }
+    }
+    public function logingit(UsersRequest $request)
+    {
+
+        return Socialite::driver('github')->redirect();
+    }
+    public function logingitcallback(UsersRequest $request)
+    {
+        $user = Socialite::driver('github')->user();
+        $users = User::where('github_id', $user->getId())->first();
+        if(!$users){
+            $useradd = User::create([
+                'github_id' => $user->getId(),
+                'name' => $user->getName(),
+                'image' => $user->getAvatar(),
+                'email' => $user->getEmail(),
+            ]);
+            Auth::login($useradd);
+            return redirect()->route('trangchu');
+
+        }else{
+            Auth::login($users);
+            return redirect()->route('trangchu');
+
+        }
+    }
+    public function testmail(Request $request)
+    {
+        if ($request->post()) {
+            $validator = Validator::make($request->all(), [
+                'name' => 'required',
+                'subject' => 'required',
+            ]);
+            if ($validator->fails()) {
+                return redirect()->back()->with('error', 'Không Được Bỏ Trống subject and email');
+            }
+            $name = $request->input('name');
+            $messages = $request->input('messages');
+            $data = [
+                'name' =>  $name,
+                'messages' => $messages ,
+                'subject' => $request->input('subject'),
+                'email' => $request->input('email'),
+            ];
+            Mail::send('email.test', compact('name', 'messages'), function ($message) use ($data) {
+                $message->from("luanntph25463@gmail.com", $data['name']);
+                $message->to("luanntph25463@fpt.edu.vn");
+                $message->subject($data['subject']);
+            });
+        }
+        return view("include.trangchu.contact");
+
+    }
     public function logout()
     {
-        session()->forget('user');
-        session()->forget('role');
+        Auth::logout();
          return redirect()->route('trangchu');
     }
     public function infomationuser(TeachersRequest $request,$id)

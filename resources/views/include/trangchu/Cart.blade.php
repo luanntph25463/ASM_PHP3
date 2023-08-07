@@ -1,7 +1,7 @@
 @extends('include.layouts')
 @section('content')
 
-<div class="container pb-5 mt-n2 mt-md-n3 pt-4">
+<div class="container pb-5 mt-n2 mt-md-n3 pt-4" style="margin-top: 200px">
     <div class="row">
         <div class="col-xl-9 col-md-8">
             <h2 class="h6 d-flex flex-wrap justify-content-between align-items-center px-4 py-3 bg-secondary">
@@ -18,7 +18,7 @@
                 <div class="d-sm-flex justify-content-between my-4 pb-4 border-bottom">
                     <div class="media d-block d-sm-flex text-center text-sm-left">
                         <a class="cart-item-thumb mx-auto mr-sm-4" href="#"><img
-                                src="{{$item['image']}}" height="230" alt="Product"></a>
+                                src="img/{{$item['image']}}" height="230" alt="Product"></a>
                         <div class="media-body pt-3">
                             <h3 class="product-card-title font-weight-semibold border-0 pb-0"><a href="#">{{$item['name']}}</a></h3>
                             <div class="font-size-sm"><span class="text-muted mr-2">Giáo Viên:</span>{{$item['tenGiaoVien']}}</div>
@@ -82,10 +82,10 @@
                 <form action="{{ route('orderadd') }}" method="post">
                     @csrf
                     <input type="hidden" name="total_amount" value="@php echo $total @endphp">
-                    @if(session()->has('user'))
-                    <input type="hidden" name="id_user" value="@php echo session('user')->id @endphp">
-                    @endif
-
+                    @auth
+                    <input type="hidden" name="id_user" value="{{auth()->user()->id}}">
+                @else
+                @endauth
                     <input type="hidden" name="status" value="3">
             <textarea class="form-control mb-3" id="order-comments" name="comment" rows="5"></textarea>
             <button type="submit" class="btn btn-primary btn-block" href="#">

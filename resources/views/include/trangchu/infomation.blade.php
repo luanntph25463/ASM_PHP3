@@ -9,7 +9,7 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="d-flex flex-column align-items-center text-center">
-                                <img src="{{$data->image}}" alt="Admin"
+                                <img src="img/{{$data->image}}" alt="Admin"
                                     class="rounded-circle p-1 bg-primary" width="110">
                                 <div class="mt-3">
                                     <h4>{{$data->name}}</h4>
@@ -92,7 +92,7 @@
                                     <h6 class="mb-0">Full Name</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
-                                    <input type="text" class="form-control" name="name" value="{{$data->name}}">
+                                    <input type="text" disabled class="form-control" name="name" value="{{$data->name}}">
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -100,7 +100,7 @@
                                     <h6 class="mb-0">Email</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
-                                    <input type="text" class="form-control" name="email" value="{{$data->email}}">
+                                    <input type="text" disabled class="form-control" name="email" value="{{$data->email}}">
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -108,7 +108,7 @@
                                     <h6 class="mb-0">Phone</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
-                                    <input type="text" class="form-control" name="phone" value="{{$data->phone}}">
+                                    <input type="text" disabled class="form-control" name="phone" value="{{$data->phone}}">
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -116,7 +116,7 @@
                                     <h6 class="mb-0">Description</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
-                                    <input type="text" class="form-control" name="description" value="{{$data->description}}">
+                                    <input type="text" disabled class="form-control" name="description" value="{{$data->description}}">
                                 </div>
                             </div>
                             @if ($errors->any())
@@ -133,7 +133,7 @@
 
                             </ul>
 
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            <button type="button" class="btn-close" disabled data-bs-dismiss="alert" aria-label="Close"></button>
 
                             </div>
 
@@ -143,7 +143,7 @@
                                     <h6 class="mb-0">Address</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
-                                    <input type="text" class="form-control" name="address" value="{{$data->address}}">
+                                    <input type="text" disabled class="form-control" name="address" value="{{$data->address}}">
                                 </div>
                             </div>
                             <div class="row">

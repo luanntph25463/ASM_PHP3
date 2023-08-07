@@ -65,7 +65,7 @@
                         </div>
 
                         <!-- Course Image -->
-                        <div class="course_image"><img src="{{$courses->image}}" alt=""></div>
+                        <div class="course_image"><img src="/img/{{$courses->image}}" alt=""></div>
 
                         <!-- Course Tabs -->
                         <div class="course_tabs_container">
@@ -270,7 +270,7 @@
                                         <ul class="comments_list">
                                             <li>
                                                 <div class="comment_item d-flex flex-row align-items-start jutify-content-start">
-                                                    <div class="comment_image"><div><img src="{{$item->image}}" alt=""></div></div>
+                                                    <div class="comment_image"><div><img src="img/{{$item->image}}" alt=""></div></div>
                                                     <div class="comment_content">
                                                         <div class="comment_title_container d-flex flex-row align-items-center justify-content-start">
                                                             <div class="comment_author"><a href="#">{{$item->name}}</a></div>
@@ -289,11 +289,10 @@
                                             </li>
                                         </ul>
                                         @endforeach
-
-                                        @if(session()->has('user'))
-                                    <form action="{{ route('addComment') }}" method="POST">
+                                        @auth
+                                        <form action="{{ route('addComment') }}" method="POST">
                                             <input type="hidden" name="id_course" value="{{$courses->id}}">
-                                            <input type="hidden" name="id_user" value="{{session('user')->id}}">
+                                            <input type="hidden" name="id_user" value="{{auth()->user()->id}}">
                                             @csrf
                                         <div class="panel-body">
                                             <textarea class="form-control" rows="2" placeholder="What are you thinking?" name="content">
@@ -308,12 +307,11 @@
                                         </div>
                                     </form>
                                     @else
-
                                     <div class="add_comment_container">
                                         <div class="add_comment_title">Add a review</div>
                                         <div class="add_comment_text">You must be <a href="{{ route('login') }}">logged</a> in to post a comment.</div>
                                     </div>
-                                    @endif
+                                    @endauth
                                     </div>
                                 </div>
 
@@ -349,7 +347,7 @@
 
                                     <!-- Feature -->
                                     <div class="feature d-flex flex-row align-items-center justify-content-start">
-                                        <div class="feature_title"><i class="fa fa-question-circle-o" aria-hidden="true"></i><span>Lectures:</span></div>
+                                        <div class="feature_title"><i class="fa fa-question-circle-o" aria-hidden="true"></i><span>Course:</span></div>
                                         <div class="feature_text ml-auto">6</div>
                                     </div>
 
@@ -361,7 +359,7 @@
 
                                     <!-- Feature -->
                                     <div class="feature d-flex flex-row align-items-center justify-content-start">
-                                        <div class="feature_title"><i class="fa fa-users" aria-hidden="true"></i><span>Lectures:</span></div>
+                                        <div class="feature_title"><i class="fa fa-users" aria-hidden="true"></i><span>Sĩ Số:</span></div>
                                         <div class="feature_text ml-auto">{{$courses->SiSo}}</div>
                                     </div>
 
@@ -371,9 +369,10 @@
                         <form  action="{{ route('user.cart') }}" method="POST">
                             @csrf
                             <input type="hidden" name="cart" value="{{$courses->id}}">
-                            @if(session()->has('user'))
-                            <input type="hidden" name="id_user" value="{{session('user')->id}}">
-                            @endif
+                            @auth
+                            <input type="hidden" name="id_user" value="{{auth()->user()->id}}">
+                        @else
+                        @endauth
                             <input type="hidden" name="price" value="{{$courses->price}}">
                         <button type="submit" class="btn-primary py-2 px-5 rounded m-5">Đăng Ký Khóa Học</button>
                         <form>

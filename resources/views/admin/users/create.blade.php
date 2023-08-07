@@ -56,9 +56,9 @@
                     <div class="form-group">
                         <label style="font-weight: bold">Quyền</label>
                         <select class="form-select" name="role" id="">
-                            <option value="1">Nhân Viên</option>
-                            <option value="2">users</option>
-                            <option value="3">Quản Trị Viên</option>
+                            <option value="3">Nhân Viên</option>
+                            <option value="1">users</option>
+                            <option value="2">Quản Trị Viên</option>
                         </select>
                         <span style="color: red; font-weight: bold" class="error_email"></span>
                     </div>

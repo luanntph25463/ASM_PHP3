@@ -194,7 +194,7 @@
                 @foreach ($courses as $item)
 				<div class="col-lg-4 course_col h-100 my-2">
 					<div class="course">
-						<div class="course_image"><img src="{{$item->image}}" alt=""></div>
+						<div class="course_image"><img src="img/{{$item->image}}" alt=""></div>
 						<div class="course_body">
 							<h3 class="course_title"><a href="{{ route('detail.courses', ['id'=>$item->id]) }}">{{$item->name}}</a></h3>
 							<div class="course_teacher">{{$item->tenGiaoVien}}</div>
@@ -421,7 +421,7 @@
                 <div class="col-lg-3 col-md-6 team_col">
 					<div class="team_item">
                         <a href="{{ route('infomationteacher', ['id'=>$item->id]) }}">
-						<div class="team_image"><img src="{{$item->image}}" alt=""></div>
+						<div class="team_image"><img src="img/{{$item->image}}" alt=""></div>
 						<div class="team_body">
 							<div class="team_title"><a href="#">{{$item->name}}</a></div>
 							<div class="team_subtitle">{{$item->specialized}}</div>

@@ -14,6 +14,7 @@ use App\Models\teachers;
 use App\Models\User;
 use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Support\Facades\Route;
+use Laravel\Socialite\Facades\Socialite;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 /*
@@ -30,26 +31,41 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 Route::get('/cart', [CoursesController::class, 'cartlist'])->name('user.cartlist');
 Route::match(['get', 'post'], 'listcourses', [CoursesController::class, 'listCourses'])->name('listcourses');
 Route::match(['get', 'post'], 'login', [UsersController::class, 'login'])->name('login');
+Route::get('/login/google', [UsersController::class, 'logingoogle'])->name('logingoogle');
+Route::get('/login/google/callback', [UsersController::class, 'logingooglecallback'])->name('logingooglecallback');
+Route::get('/login/facebook', [UsersController::class, 'loginface'])->name('loginface');
+Route::get('/login/facebook/callback', [UsersController::class, 'loginfacecallback'])->name('loginfacecallback');
+Route::get('/login/github', [UsersController::class, 'logingit'])->name('logingit');
+Route::get('/login/github/callback', [UsersController::class, 'logingitcallback'])->name('logingitcallback');
 
 
-Route::get('/lienhe', [CoursesController::class, 'lienhe'])->name('lienhe');
+// Route::get('/login/googles', function () {
+//     return Socialite::driver('google')->redirect();
+// });
+// Route::get('/login/google/callback', function () {
+//     $user = Socialite::driver('google')->user()->getEmail();
+//     $users = User::where('email', $user)->first();
+//     dd($users);
+// });
+Route::match(['get', 'post'], 'lienhe', [UsersController::class, 'testmail'])->name('lienhe');
 Route::get('/logout', [UsersController::class, 'logout'])->name('logout');
 Route::get('/{id}', [CoursesController::class, 'trangchuFull'])->name('trangchufull');
 Route::get('/detail/{id}', [CoursesController::class, 'detailcoursres'])->name('detail.courses');
-Route::middleware(['auth',])->get('/', [CoursesController::class, 'trangchu'])->name('trangchu');
+Route::get('/', [CoursesController::class, 'trangchu'])->name('trangchu');
+Route::match(['get', 'post'], 'infomationteacher/{id}', [teachersController::class, 'infomationteacher'])->name('infomationteacher');
+
 Route::get('/removecart/{id}', [CoursesController::class, 'removecart'])->name('removecart');
 Route::middleware(['auth'])->group(function () {
     Route::post('/addcart', [CoursesController::class, 'cart'])->name('user.cart');
     Route::post('/addorder', [CoursesController::class, 'orderadd'])->name('orderadd');
     Route::post('/addcomment', [ReviewsController::class, 'addcomment'])->name('addComment');
-    Route::match(['get', 'post'], 'infomationteacher/{id}', [teachersController::class, 'infomationteacher'])->name('infomationteacher');
     Route::match(['get', 'post'], 'infomationuser/{id}', [UsersController::class, 'infomationuser'])->name('infomationuser');
 });
 
 Route::middleware(['check.test'])->group(function () {
-    Route::prefix('/admin')->group(function () {
-        Route::get('/dashboard', [UsersController::class, 'Dashboard'])->name('Dashboard');
-        Route::prefix('/category/')->group(function () {
+            Route::prefix('/admin')->group(function () {
+            Route::get('/dashboard', [UsersController::class, 'Dashboard'])->name('Dashboard');
+            Route::prefix('/category/')->group(function () {
             Route::get('/list', [CategoryController::class, 'index'])->name('category.list');
             Route::match (['get', 'post'], '/add', [CategoryController::class, 'add'])->name('category.add');
             Route::match (['get', 'post'], '/update/{id}', [CategoryController::class, 'update'])->name('category.update');
@@ -117,7 +133,7 @@ Route::middleware(['check.test'])->group(function () {
             Route::get('/delete', [teachersController::class, 'delete'])->name('teachers.delete');
         }
         );
-        Route::prefix('/users/')->group(function () {
+        Route::middleware('check.role')->prefix('/users/')->group(function () {
             Route::get('/list', [UsersController::class, 'index'])->name('users.list');
             Route::match (['get', 'post'], '/add', [UsersController::class, 'add'])->name('users.add');
             Route::match (['get', 'post'], '/update/{id}', [UsersController::class, 'update'])->name('users.update');

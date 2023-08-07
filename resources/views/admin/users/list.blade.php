@@ -69,10 +69,12 @@
                 <td>{{ $item->phone }}</td>
                 <td>{{ $item->address }}</td>
                 <td>
-                    @if($item->status == 1)
+                    @if($item->role == 3)
                      Nhân Viên
-                     @elseif($item->status == 2)
+                     @elseif($item->role == 1)
                     Người Dùng
+                    @elseif($item->role == 2)
+                    Quản Trị Viên
                      @endif
                      </td>
                 <td>
@@ -158,7 +160,7 @@
                     $('#mat_truoc_preview').val(response.data.image)
                     $('#status').val(response.data.status)
                     $('#hidden_image').val(response.data.image)
-                    $('#password').val(response.data.email)
+                    $('#password').val(response.data.password)
                     $('#email').val(response.data.email)
                 }
             })

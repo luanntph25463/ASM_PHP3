@@ -9,7 +9,7 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="d-flex flex-column align-items-center text-center">
-                                <img src="{{$data->image}}" alt="Admin"
+                                <img src="/img/{{$data->image}}" alt="Admin"
                                     class="rounded-circle p-1 bg-primary" width="110">
                                 <div class="mt-3">
                                     <h4>{{$data->name}}</h4>

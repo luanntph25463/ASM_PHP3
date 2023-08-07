@@ -6,6 +6,7 @@ use App\Exports\ExportFile;
 use App\Models\carts;
 use App\Models\courses;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\UsersExport;
@@ -59,11 +60,15 @@ class CoursesController extends Controller
                 'courses.created_at',
                 'courses.updated_at'
             )
-            ->distinct()->limit(6)
+            ->distinct()->limit(6)->orderBy('id','desc')
             ->get();
         // dd($courses);
         $teachers = DB::table('teachers')->get();
         $category = DB::table('category_courses')->limit(4)->get();
+        // $user = Auth::user();
+
+        // // Lưu thông tin người dùng vào phiên làm việc hiện tại
+        //   dd($user);
         return view('include.trangchu.index', compact('courses', 'teachers', 'category'));
     }
     public function detailcoursres($id)
@@ -274,6 +279,7 @@ class CoursesController extends Controller
                 ]);
             }
             $user = new courses();
+
             $user->name = $request->input('name');
             $user->description = $request->input('description');
             $user->price = $request->input('price');
@@ -281,10 +287,13 @@ class CoursesController extends Controller
             $user->id_promotions = $request->input('id_promotions');
             $user->status = $request->input('status');
             $user->id_class = $request->input('id_class');
+
             $image = $request->file('image');
             $newName = time() . '.' . $image->getClientOriginalExtension();
             $image->move(public_path('/img/'), $newName);
             $user->image = $newName;
+
+
             $user->save();
             return response()->json([
                 'code' => 1,
@@ -340,14 +349,13 @@ class CoursesController extends Controller
             'end_date' => $course->end_date,
             'tenDM' => $course->tenDM,
         ];
-
         if (session()->has('cart')) {
             $cart = session()->get('cart');
             $existingItemIndex = collect($cart)->search(function ($item) use ($course) {
                 return $item['id'] == $course->id;
             });
             $existingItemIndex1 = collect($cart)->search(function ($item) use ($course) {
-                return $item['id_user'] == session('user')->id;
+                return $item['id_user'] == Auth::user()->id;
             });
             if ($existingItemIndex !== false && $existingItemIndex1 !== false) {
                 // $cart[$existingItemIndex]['quantity'] += 1;
@@ -365,10 +373,10 @@ class CoursesController extends Controller
         $carts = session()->get('cart', []);
 
         $carts_with_user_id = [];
-        if(session('user')){
+        if(Auth::user()){
             foreach ($carts as $cart) {
                 if (array_key_exists('id_user', $cart)) {
-                    if ($cart['id_user'] == session('user')->id) {
+                    if ($cart['id_user'] == Auth::user()->id) {
                         $user_id = $cart['id_user'];
                         $carts_with_user_id[] = $cart;
                     }
@@ -389,7 +397,7 @@ class CoursesController extends Controller
         foreach ($cart as $key => $item) {
             // dd($item['id']);
 
-            if (isset($item['id_user']) && $item['id_user'] == session('user')->id && $item['id'] == $course_id) {
+            if (isset($item['id_user']) && $item['id_user'] == Auth::user()->id && $item['id'] == $course_id) {
                 // Xóa course khỏi giỏ hàng
                 unset($cart[$key]);
             }
@@ -412,19 +420,18 @@ class CoursesController extends Controller
             // Tìm kiếm course trong giỏ hàng với điều kiện id_user
             foreach ($cart as $key => $item) {
 
-                if (isset($item['id_user']) && $item['id_user'] == session('user')->id) {
+                if (isset($item['id_user']) && $item['id_user'] == Auth::user()->id) {
                     $courses = DB::table('carts')->orderBy('id', 'desc')->first();
                     $users = new Cart_detail();
                     $users->id_order = $courses->id;
                     $users->id_courses = $item['id'];
-                    // Xóa course khỏi giỏ hàng
                     $users->save();
                     unset($cart[$key]);
                 }
             }
             session()->put('cart', $cart);
             Session::flash('success', 'ADD Thành Công');
-            return redirect()->route('infomationuser',['id'=>session('user')->id]);
+            return redirect()->route('infomationuser',['id'=>Auth::user()->id]);
         }
     }
 

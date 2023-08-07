@@ -1,6 +1,6 @@
 @extends('include.layouts')
 @section('content')
-<div class="d-lg-flex half">
+<div class="d-lg-flex half" style="margin-top: 200px">
     <div class="bg order-1 order-md-2" style="background-image: url('images/bg_1.jpg');"></div>
     <div class="contents order-2 order-md-1">
 
@@ -50,6 +50,27 @@
 
               <button type="submit" value="Log In" class="btn btn-block btn-primary">Login
               </button>
+              <div class="modal-body">
+                <div class="login-container animated fadeInDown bootstrap snippets bootdeys">
+                    <div class="loginbox bg-white">
+                        <div class="loginbox-title">SIGN IN</div>
+                        <div class="loginbox-social">
+                            <div class="social-title ">Connect with Your Social Accounts</div>
+                            <div class="social-buttons">
+                                <a href="{{ route('loginface')}}" class="button-facebook">
+                                    <i class="social-icon fa fa-facebook"></i>
+                                </a>
+                                <a href="{{ route('logingit') }}" class="button-twitter">
+                                    <i class="fa-brands fa-github"></i>                              </a>
+                                <a href="{{ route('logingoogle') }}" class="button-google">
+                                    <i class="social-icon fa fa-google-plus"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+              </div>
             </form>
           </div>
         </div>
@@ -73,6 +94,8 @@
 <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 @endsection
 @section('js')
+<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <script src="{{ asset('plugins/parallax-js-master/parallax.min.js') }}"></script>
 <script src="{{ asset('js/custom.js') }}"></script>
 <script src="{{ asset('js/jquery-3.3.1.min.js') }}"></script>

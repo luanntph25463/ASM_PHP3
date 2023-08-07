@@ -9,6 +9,7 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap4/bootstrap.min.css') }}">
 <link href="{{ asset('plugins/font-awesome-4.7.0/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
 <link rel="stylesheet" type="text/css" href="{{ asset('plugins/OwlCarousel2-2.2.1/owl.carousel.css') }}">
+
 <link rel="stylesheet" type="text/css" href="{{ asset('plugins/OwlCarousel2-2.2.1/owl.theme.default.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('plugins/OwlCarousel2-2.2.1/animate.css') }}">
 
@@ -54,29 +55,31 @@
 		<div class="header_container">
 			<div class="container">
 				<div class="row">
-                   @if (Session::has('user'))
-                   <div class="profile">
-                    <div class="profile-header">
+                    @auth
+    <!-- Người dùng đã đăng nhập -->
+    <div class="profile">
+        <div class="profile-header">
+            <div class="profile-header-cover"></div>
+            <div class="profile-header-content">
 
-                        <div class="profile-header-cover"></div>
-
-
-                        <div class="profile-header-content">
-
-                            <div class="profile-header-img">
-                                <img width="100px" src="{{session('user')->image}}" alt>
-                            </div>
-                            <div class="profile-header-info">
-                                <h4 class="m-t-10 m-b-5">{{session('user')->name}}</h4>
-                                <a href="{{ route('infomationuser', ['id'=>session('user')->id]) }}" class="btn btn-sm btn-info mb-2">Edit Profile</a>
-                                <a href="{{ route('logout') }}"><i class="fa-sharp fa-solid fa-right-from-bracket"></i>OUT</a>
-                            </div>
-                        </div>
-                    </div>
+                <div class="profile-header-img">
+                    <img width="100px" src="img/{{ auth()->user()->image }}" alt>
                 </div>
-                   @else
-
-                   @endif
+                <div class="profile-header-info">
+                    <h4 class="m-t-10 m-b-5">{{ auth()->user()->name }}</h4>
+                    <a href="{{ route('infomationuser', ['id'=>auth()->user()->id]) }}" class="btn btn-sm btn-info mb-2">Edit Profile</a>
+                    <a href="{{ route('logout') }}"><i class="fa-sharp fa-solid fa-right-from-bracket"></i>OUT</a>
+                    @if (auth()->user()->role != 1)
+                    <a href="{{ route('Dashboard') }}" class="btn btn-sm btn-info mb-2">Admin</a>
+                    @endif
+                </div>
+            </div>
+        </div>
+    </div>
+@else
+    <!-- Người dùng chưa đăng nhập -->
+    <span>Vui lòng đăng nhập</span>
+@endauth
 					<div class="col">
 						<div class="header_content d-flex flex-row align-items-center justify-content-start">
 							<div class="logo_container">
@@ -89,13 +92,13 @@
 									<li class="active"><a href="#">Home</a></li>
 									<li><a href="{{ route('listcourses') }}">List Courses</a></li>
 									<li><a href="{{ route('lienhe') }}">Contact</a></li>
-									<li><a href="{{ route('user.cartlist') }}">Cart</a></li>
+									<li></li>
 								</ul>
 								<div class="search_button"><i class="fa fa-search" aria-hidden="true"></i></div>
 
 								<!-- Hamburger -->
 
-								<div class="shopping_cart"><i class="fa fa-shopping-cart" aria-hidden="true"></i></div>
+								<div class="shopping_cart"><a href="{{ route('user.cartlist') }}"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a></div>
 								<div class="hamburger menu_mm">
 									<i class="fa fa-bars menu_mm" aria-hidden="true"></i>
 								</div>

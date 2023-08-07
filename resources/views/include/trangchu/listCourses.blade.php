@@ -54,7 +54,7 @@
                         <!-- Course -->@foreach ($courses as $item )
                         <div class="col-lg-6 course_col">
                             <div class="course">
-                                <div class="course_image"><img src="{{$item->image}}" alt=""></div>
+                                <div class="course_image"><img src="img/{{$item->image}}" alt=""></div>
                                 <div class="course_body">
                                     <h3 class="course_title"><a href="{{ route('detail.courses', ['id'=>$item->id]) }}">{{$item->name}}</a></h3>
                                     <div class="course_teacher">{{$item->tenGiaoVien}}</div>
